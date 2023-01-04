@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class FragmentHome extends Fragment {
 
     public static ArrayList<ProductData> ALL_PRODUCT = new ArrayList<>();
-    private ArrayList<ProductData> random_popular_products = new ArrayList<>();
+    private ArrayList<ProductData> random_popular = new ArrayList<>();
     private FirebaseAuth mAuth;
     private StorageReference mStorage;
     private DatabaseReference mDatabase;
