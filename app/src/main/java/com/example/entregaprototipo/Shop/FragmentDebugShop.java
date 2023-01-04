@@ -1,0 +1,403 @@
+package com.example.entregaprototipo.Shop;
+
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
+
+import static com.example.entregaprototipo.Shop.ActivityMainShop.LOGGED_USER;
+import static com.example.entregaprototipo.Shop.ActivityMainShop.USER_UID;
+import static com.example.entregaprototipo.Shop.ActivityMainShop.isGoogleAccount;
+import static com.example.entregaprototipo.Shop.ActivityMainShop.isNormalAccount;
+import static com.example.entregaprototipo.Shop.FragmentHome.ALL_PRODUCT;
+
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.ImageDecoder;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import android.provider.MediaStore;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.example.entregaprototipo.LoginRegister.ActivityRegister;
+import com.example.entregaprototipo.ProductModel.ProductData;
+import com.example.entregaprototipo.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class FragmentDebugShop extends Fragment  implements View.OnClickListener {
+
+    private FirebaseAuth mAuth;
+    private StorageReference mStorage;
+    private DatabaseReference mDatabase;
+
+    private EditText etName, etDescription, etPrice;
+    private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6,imageView7,imageView8;
+    private int selected_image = 0;
+    private Button btSave;
+    private Spinner spinnerCategory;
+
+    private ActivityResultLauncher<Intent> activityResultLauncher;
+    private Uri imagenUri;
+    private Bitmap bitmap;
+    private boolean[] position_used = new boolean[9];
+    private ArrayList<Uri> used_uri = new ArrayList<>();
+
+    private boolean product_save;
+    private String product_count;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_debug_shop, container, false);
+
+        etName = v.findViewById(R.id.etNombreAgregar);
+        etDescription = v.findViewById(R.id.etDescripcionAgregar);
+        etPrice = v.findViewById(R.id.etPrecioAgregar);
+
+        imageView1 = v.findViewById(R.id.imageAgregar);
+        imageView2 = v.findViewById(R.id.imageAgregar2);
+        imageView3 = v.findViewById(R.id.imageAgregar3);
+        imageView4 = v.findViewById(R.id.imageAgregar4);
+        imageView5 = v.findViewById(R.id.imageAgregar5);
+        imageView6 = v.findViewById(R.id.imageAgregar6);
+        imageView7 = v.findViewById(R.id.imageAgregar7);
+        imageView8 = v.findViewById(R.id.imageAgregar8);
+        imageView1.setOnClickListener(this);
+        imageView2.setOnClickListener(this);
+        imageView3.setOnClickListener(this);
+        imageView4.setOnClickListener(this);
+        imageView5.setOnClickListener(this);
+        imageView6.setOnClickListener(this);
+        imageView7.setOnClickListener(this);
+        imageView8.setOnClickListener(this);
+
+        btSave = v.findViewById(R.id.btGuardarDB);
+        product_save = false;
+
+
+        spinnerCategory = v.findViewById(R.id.spinnerCategoria);
+        String[] categorias = {"Electronica","Ropa","Libro/Cine/Musica","Coleccion","Servicios","Otros"};
+        ArrayAdapter<String> adaptador_spinner = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, categorias);
+        spinnerCategory.setAdapter(adaptador_spinner);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        mStorage = FirebaseStorage.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        if(isGoogleAccount){
+            mDatabase.child("GoogleUsers").child(USER_UID).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot data: snapshot.getChildren()){
+                        if(data.getKey().equals("countProduct")){
+                            product_count = data.getValue().toString();
+                            break;
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+        else if(isNormalAccount){
+            mDatabase.child("FireBaseUsers").child(USER_UID).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot data: snapshot.getChildren()){
+                        if(data.getKey().equals("countProduct")){
+                            product_count = data.getValue().toString();
+                            break;
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
+        //Cargador de imagenes
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if(result.getResultCode() == RESULT_OK && result.getData() != null){
+                    //Obtiene datos de imagen
+                    Intent data = result.getData();
+                    imagenUri = data.getData();
+                    ContentResolver contentResolver = getActivity().getContentResolver();
+                    try {
+                        //Dependiendo de que version sea, ejecutara un codigo u otro
+                        if(Build.VERSION.SDK_INT < 28) {
+                            checkPositionIsUsed(selected_image);
+                            position_used[selected_image] = true;
+                            used_uri.add(imagenUri);
+                            switch (selected_image){
+                                case 1:
+                                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imagenUri);
+                                    imageView1.setImageBitmap(bitmap);
+                                    break;
+                                case 2:
+                                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imagenUri);
+                                    imageView2.setImageBitmap(bitmap);
+                                    break;
+                                case 3:
+                                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imagenUri);
+                                    imageView3.setImageBitmap(bitmap);
+                                    break;
+                                case 4:
+                                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imagenUri);
+                                    imageView4.setImageBitmap(bitmap);
+                                    break;
+                                case 5:
+                                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imagenUri);
+                                    imageView5.setImageBitmap(bitmap);
+                                    break;
+                                case 6:
+                                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imagenUri);
+                                    imageView6.setImageBitmap(bitmap);
+                                    break;
+                                case 7:
+                                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imagenUri);
+                                    imageView7.setImageBitmap(bitmap);
+                                    break;
+                                case 8:
+                                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imagenUri);
+                                    imageView8.setImageBitmap(bitmap);
+                                    break;
+                            }
+                        }
+                        else{
+                            ImageDecoder.Source source = ImageDecoder.createSource(contentResolver,imagenUri);
+                            bitmap = ImageDecoder.decodeBitmap(source);
+                            checkPositionIsUsed(selected_image);
+                            position_used[selected_image] = true;
+                            used_uri.add(imagenUri);
+                            switch (selected_image){
+                                case 1:
+                                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imagenUri);
+                                    imageView1.setImageBitmap(bitmap);
+                                    break;
+                                case 2:
+                                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imagenUri);
+                                    imageView2.setImageBitmap(bitmap);
+                                    break;
+                                case 3:
+                                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imagenUri);
+                                    imageView3.setImageBitmap(bitmap);
+                                    break;
+                                case 4:
+                                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imagenUri);
+                                    imageView4.setImageBitmap(bitmap);
+                                    break;
+                                case 5:
+                                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imagenUri);
+                                    imageView5.setImageBitmap(bitmap);
+                                    break;
+                                case 6:
+                                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imagenUri);
+                                    imageView6.setImageBitmap(bitmap);
+                                    break;
+                                case 7:
+                                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imagenUri);
+                                    imageView7.setImageBitmap(bitmap);
+                                    break;
+                                case 8:
+                                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imagenUri);
+                                    imageView8.setImageBitmap(bitmap);
+                                    break;
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else if(result.getResultCode() == RESULT_CANCELED){
+                    Toast.makeText(FragmentDebugShop.this.getContext(),"Cancelado...",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name_product = etName.getText().toString();
+                String description = etDescription.getText().toString();
+                String category = spinnerCategory.getSelectedItem().toString();
+                String price_product = etPrice.getText().toString();
+
+                if(name_product.isEmpty()){
+                    Toast.makeText(FragmentDebugShop.this.getContext(),  R.string.product_name_empty, Toast.LENGTH_SHORT).show();
+                    etName.requestFocus();
+                    return;
+                }
+                else if(description.isEmpty()){
+                    Toast.makeText(FragmentDebugShop.this.getContext(), R.string.product_description_empty, Toast.LENGTH_SHORT).show();
+                    etDescription.requestFocus();
+                    return;
+                }
+                else if(category.isEmpty()){
+                    Toast.makeText(FragmentDebugShop.this.getContext(), R.string.product_category_empty, Toast.LENGTH_SHORT).show();
+                    spinnerCategory.requestFocus();
+                    return;
+                }
+                else if(price_product.isEmpty()){
+                    Toast.makeText(FragmentDebugShop.this.getContext(), R.string.product_category_empty, Toast.LENGTH_SHORT).show();
+                    etPrice.requestFocus();
+                    return;
+                }
+                else if(used_uri.size() == 0){
+                    Toast.makeText(FragmentDebugShop.this.getContext(), R.string.product_image_empty, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else{
+                    if(isNormalAccount){
+                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Product").setValue(name_product);
+                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Description").setValue(description);
+                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Category").setValue(category);
+                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Price").setValue(price_product);
+                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Available").setValue(true);
+                        mDatabase.child("FireBaseUsers").child(USER_UID).child("countProduct").setValue(Integer.toString(1 + Integer.parseInt(product_count)));
+                        int number_image = 0;
+                        if(used_uri != null){
+                            for(Uri data_image: used_uri){
+                                number_image++;
+                                String number_string_image =  Integer.toString(number_image);
+                                StorageReference ubicationImagen = mStorage.child("FireBaseUsers").child(USER_UID).child("Product"+product_count).child("Image"+number_string_image+".png");
+                                String finalProduct_count = product_count;
+                                ubicationImagen.putFile(data_image).addOnSuccessListener(taskSnapshot -> ubicationImagen.getDownloadUrl().addOnCompleteListener(task2 -> {
+                                    Uri imageURL = task2.getResult();
+                                    mDatabase.child("Productos").child(USER_UID).child("Product"+finalProduct_count).child("Image"+number_string_image).setValue(imageURL.toString());
+                                    if(!product_save){
+                                        product_save = true;
+                                        ArrayList<String> one_use = new ArrayList<>();
+                                        one_use.add(imageURL.toString());
+                                        ProductData new_product = new ProductData(LOGGED_USER.getName(), USER_UID, name_product, description, category, Double.parseDouble(price_product), one_use, true);
+                                        ALL_PRODUCT.add(new_product);
+                                        Toast.makeText(FragmentDebugShop.this.getContext(), R.string.product_added, Toast.LENGTH_SHORT).show();
+                                    }
+                                }));
+                            }
+                        }
+                    }
+                    else if(isGoogleAccount){
+                        //Agregacion de producto
+                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Product").setValue(name_product);
+                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Description").setValue(description);
+                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Category").setValue(category);
+                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Price").setValue(price_product);
+                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Available").setValue(true);
+                        mDatabase.child("GoogleUsers").child(USER_UID).child("countProduct").setValue(Integer.toString(1 + Integer.parseInt(product_count)));
+                        int number_image = 0;
+                        if(used_uri != null){
+                            for(Uri data_image: used_uri){
+                                number_image++;
+                                String number_string_image =  Integer.toString(number_image);
+                                StorageReference ubicationImagen = mStorage.child("GoogleUsers").child(USER_UID).child("Product"+product_count).child("Image"+number_string_image+".png");
+                                String finalProduct_count = product_count;
+                                ubicationImagen.putFile(data_image).addOnSuccessListener(taskSnapshot -> ubicationImagen.getDownloadUrl().addOnCompleteListener(task2 -> {
+                                    Uri imageURL = task2.getResult();
+                                    mDatabase.child("Productos").child(USER_UID).child("Product"+finalProduct_count).child("Image"+number_string_image).setValue(imageURL.toString());
+                                    if(!product_save){
+                                        product_save = true;
+                                        ArrayList<String> one_use = new ArrayList<>();
+                                        one_use.add(imageURL.toString());
+                                        ProductData new_product = new ProductData(LOGGED_USER.getName(), USER_UID, name_product, description, category, Double.parseDouble(price_product), one_use, true);
+                                        ALL_PRODUCT.add(new_product);
+                                        Toast.makeText(FragmentDebugShop.this.getContext(), R.string.product_added, Toast.LENGTH_SHORT).show();
+                                    }
+                                }));
+                            }
+                        }
+                    }
+                    else{
+                        Toast.makeText(FragmentDebugShop.this.getContext(), "FATAL ERROR", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+        // Inflate the layout for this fragment
+        return v;
+    }
+    //Cada imagen
+    @Override
+    public void onClick(View v){
+        Intent i = new Intent(Intent.ACTION_PICK);
+        i.setType("image/*");
+        switch (v.getId()){
+            case R.id.imageAgregar:
+                selected_image = 1;
+                activityResultLauncher.launch(i);
+                break;
+            case R.id.imageAgregar2:
+                selected_image = 2;
+                activityResultLauncher.launch(i);
+                break;
+            case R.id.imageAgregar3:
+                selected_image = 3;
+                activityResultLauncher.launch(i);
+                break;
+            case R.id.imageAgregar4:
+                selected_image = 4;
+                activityResultLauncher.launch(i);
+                break;
+            case R.id.imageAgregar5:
+                selected_image = 5;
+                activityResultLauncher.launch(i);
+                break;
+            case R.id.imageAgregar6:
+                selected_image = 6;
+                activityResultLauncher.launch(i);
+                break;
+            case R.id.imageAgregar7:
+                selected_image = 7;
+                activityResultLauncher.launch(i);
+                break;
+            case R.id.imageAgregar8:
+                selected_image = 8;
+                activityResultLauncher.launch(i);
+                break;
+        }
+    }
+
+    public void checkPositionIsUsed(int position){
+        if(position_used[position] == true){
+            used_uri.remove(position);
+        }
+    }
+}

@@ -1,0 +1,115 @@
+<resources>
+    <string name="app_name">EntregaPrototipo</string>
+
+    <!-- String de SplashScreen-->
+    <string name="first_time_welcoming">Bienvenido a MedacMarket</string>
+    <string name="text_splash_welcoming">Diviertete comprando</string>
+    <string name="creator_text">Creado por Xiaolong Xu</string>
+
+    <!-- String de login/register-->
+    <!-- String de Login -->
+    <string name="welcome">Bienvenido</string>
+    <string name="description">Conecta con tu correo o con tu correo de Google</string>
+    <string name="description2">Esto solo es un prototipo, todos los datos se guarda en FireBase.</string>
+    <string name="googleLogin">O logee con:</string>
+    <string name="sign_in">Log In</string>
+    <string name="register">Registrar</string>
+    <string name="correo"> Correo</string>
+    <string name="password"> Contraseña</string>
+    <string name="remember_me">Recuerdame</string>
+    <string name="forgotPassword">¿Olvidastes la contraseña?</string>
+    <string name="newAccount">¿No tienes cuenta?</string>
+    <string name="confirme">Conectar</string>
+    <string name="emptyPass">Rellene la contraseña</string>
+    <string name="wrongData">Los datos son erroneos</string>
+    <string name="notImplementedIsRememberMe">El checkBox de momento no esta implementada</string>
+    <string name="failedLogin">Error en el login</string>
+    <string name="welcome_login">Bienvenido!</string>
+
+    <!-- String de Register -->
+    <string name="createAccount">Crear cuenta</string>
+    <string name="description_register">Esto solo es un prototipo, las cuentas que se creen se guardara en FireBase.</string>
+    <string name="check_mail">Revisa en tu correo para verificar. Si no encuentra la verificacion, por favor revise en "Spam"</string>
+    <string name="failure_register">Error en el registro</string>
+    <string name="your_name"> Nombre</string>
+    <string name="new_mail"> Correo</string>
+    <string name="new_password"> Contraseña</string>
+    <string name="your_phone">Teléfono</string>
+    <string name="your_address">Dirección</string>
+    <string name="re_enter_password"> Reintroduce la contraseña</string>
+    <string name="haveAccount">¿Ya tienes una cuenta?</string>
+    <string name="dontMatchPassword">La contraseña no son iguales</string>
+    <string name="tooShortPassword">Pon al menos mas de 6 caracteres en la contraseña</string>
+    <string name="emptyName">No puede estar vacio el nombre</string>
+    <string name="emptyMail">No puede estar vacio el correo</string>
+    <string name="emptyPhone">No puede estar vacio el numero de telefono</string>
+    <string name="emptyAdress">No puede estar vacio la direccion</string>
+    <string name="notMatchMail">Introduzca un mail valido</string>
+    <string name="successRegister">Registrado exitosamente</string>
+    <string name="failedRegister">Registro fallido</string>
+    <string name="nameUsed">Nombre usado</string>
+    <string name="mailUsed">Correo usado</string>
+
+    <!-- String Carga-->
+    <string name="loading">Cargando...</string>
+
+    <!-- String nav Tienda menu -->
+    <string name="home">Principal</string>
+    <string name="category">Categoria</string>
+    <string name="cart">Carrito</string>
+    <string name="perfil">Perfil</string>
+
+    <!-- String Item Tienda-->
+    <string name="addCart">Agregar al carrito</string>
+    <string name="goBack">Volver</string>
+    <string name="added">Producto agregado</string>
+
+    <!-- String Fragment Home-->
+    <string name="search">Buscar un producto</string>
+    <string name="recently_viewed">Vistos recientemente</string>
+    <string name="popular_products">Productos destacados</string>
+    <string name="title_home">Todos los productos</string>
+
+    <!-- String Fragment Category-->
+    <string name="title_category">Productos por categoria</string>
+
+    <!-- String Fragment Cart-->
+    <string name="title_cart">Tus productos agregados</string>
+    <string name="process_buy">Tramitar</string>
+    <string name="total_price">Precio total</string>
+
+    <!-- String Dialog purchase-->
+    <string name="confirming">¿Estas seguro que has terminado?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+
+    <!-- String Fragment Perfil-->
+    <string name="tittle_perfil">Perfil</string>
+    <string name="perfil_name">Nombre:</string>
+    <string name="perfil_mail">Correo:</string>
+    <string name="quit">Salir</string>
+
+    <!-- String Final Test-->
+    <string name="title_final">Este es la prueba del projecto</string>
+    <string name="description_final">En esta prueba has gastado </string>
+    <string name="backToMenu">Volver al menu</string>
+    <string name="backToShop">Volver a la tienda</string>
+
+    <!-- String Add Product-->
+    <string name="details_title">Detalles del producto</string>
+    <string name="add_image">Agregar imagenes</string>
+    <string name="product_name">Nombre producto</string>
+    <string name="product_description">Descripcion</string>
+    <string name="product_category">Categorias</string>
+    <string name="product_price">Precio</string>
+    <string name="product_name_empty">No puede dejar el nombre vacio</string>
+    <string name="product_description_empty">Agregue una descripcion</string>
+    <string name="product_category_empty">No puede dejar el categoria vacio</string>
+    <string name="product_price_empty">No puede dejar el precio vacio</string>
+    <string name="product_image_empty">Agrega al menos 1 imagen</string>
+    <string name="product_added">Producto agregado correctamente</string>
+
+    <string name="hello_blank_fragment">Hola black fragment</string>
+
+
+</resources>
