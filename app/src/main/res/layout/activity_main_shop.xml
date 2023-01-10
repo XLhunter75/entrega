@@ -16,8 +16,10 @@
         app:itemTextColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/main_shop_menu" />
 
     <androidx.fragment.app.FragmentContainerView
@@ -25,12 +27,12 @@
         android:name="com.example.entregaprototipo.Shop.FragmentHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintHeight="match_constraint"
         app:defaultNavHost="true"
-        app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight="match_constraint"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/shop_nav"
         tools:layout="@layout/fragment_home" />

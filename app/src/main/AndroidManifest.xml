@@ -35,6 +35,7 @@
         </activity>
         <activity
             android:name=".Shop.ActivityMainShop"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -42,6 +43,7 @@
         </activity>
         <activity
             android:name=".Cargadores.CargarAplicacion"
+            android:noHistory="true"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -49,6 +51,7 @@
         </activity>
         <activity
             android:name=".SplashActivity"
+            android:noHistory="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -69,6 +72,7 @@
         </activity>
         <activity
             android:name=".LoginRegister.ActivityLogin"
+            android:noHistory="true"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"

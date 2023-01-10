@@ -38,6 +38,7 @@ public class CargarAplicacion extends AppCompatActivity {
         isGoogleAccount = extras.getBoolean("googleAccount");
         isNormalAccount = extras.getBoolean("normalAccount");
 
+
         Intent i = new Intent(CargarAplicacion.this, ActivityMainShop.class);
         i.putExtra("normalAccount", isNormalAccount);
         i.putExtra("googleAccount", isGoogleAccount);
@@ -54,5 +55,3 @@ public class CargarAplicacion extends AppCompatActivity {
 
     }
 }
-
-

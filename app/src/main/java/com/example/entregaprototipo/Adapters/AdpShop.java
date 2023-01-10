@@ -85,7 +85,7 @@ public class AdpShop extends RecyclerView.Adapter<AdpShop.ViewHolder> {
         //Pondra la informacion al objeto
         public void bindData(@NonNull ProductData productData){
             tvNameProduct.setText(productData.getProduct_name());
-            tvPriceProduct.setText(Double.toString(productData.getProduct_price()));
+            tvPriceProduct.setText(Double.toString(productData.getProduct_price())+"€");
             ArrayList<String> url_images = productData.getUrl_set_image_data();
             Uri product_image = Uri.parse(url_images.get(0));
             Glide.with(itemView).load(String.valueOf(product_image)).into(imageProduct);

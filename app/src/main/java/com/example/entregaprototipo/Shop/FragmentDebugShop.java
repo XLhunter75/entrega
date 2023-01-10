@@ -7,8 +7,9 @@ import static com.example.entregaprototipo.Shop.ActivityMainShop.LOGGED_USER;
 import static com.example.entregaprototipo.Shop.ActivityMainShop.USER_UID;
 import static com.example.entregaprototipo.Shop.ActivityMainShop.isGoogleAccount;
 import static com.example.entregaprototipo.Shop.ActivityMainShop.isNormalAccount;
-import static com.example.entregaprototipo.Shop.FragmentHome.ALL_PRODUCT;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -68,12 +69,11 @@ public class FragmentDebugShop extends Fragment  implements View.OnClickListener
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
     private Uri imagenUri;
-    private Bitmap bitmap;
     private boolean[] position_used = new boolean[9];
     private ArrayList<Uri> used_uri = new ArrayList<>();
 
     private boolean product_save;
-    private String product_count;
+    private int product_count;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,7 +104,6 @@ public class FragmentDebugShop extends Fragment  implements View.OnClickListener
         btSave = v.findViewById(R.id.btGuardarDB);
         product_save = false;
 
-
         spinnerCategory = v.findViewById(R.id.spinnerCategoria);
         String[] categorias = {"Electronica","Ropa","Libro/Cine/Musica","Coleccion","Servicios","Otros"};
         ArrayAdapter<String> adaptador_spinner = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, categorias);
@@ -114,42 +113,22 @@ public class FragmentDebugShop extends Fragment  implements View.OnClickListener
         FirebaseUser user = mAuth.getCurrentUser();
         mStorage = FirebaseStorage.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        if(isGoogleAccount){
-            mDatabase.child("GoogleUsers").child(USER_UID).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot data: snapshot.getChildren()){
-                        if(data.getKey().equals("countProduct")){
-                            product_count = data.getValue().toString();
-                            break;
-                        }
+
+        mDatabase.child("Productos").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data : snapshot.getChildren()){
+                    if(data.getKey().equals("countProduct")){
+                        product_count = Integer.parseInt(data.getValue().toString());
                     }
                 }
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
-        }
-        else if(isNormalAccount){
-            mDatabase.child("FireBaseUsers").child(USER_UID).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot data: snapshot.getChildren()){
-                        if(data.getKey().equals("countProduct")){
-                            product_count = data.getValue().toString();
-                            break;
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
+            }
+        });
 
         //Cargador de imagenes
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
@@ -162,6 +141,7 @@ public class FragmentDebugShop extends Fragment  implements View.OnClickListener
                     ContentResolver contentResolver = getActivity().getContentResolver();
                     try {
                         //Dependiendo de que version sea, ejecutara un codigo u otro
+                        Bitmap bitmap;
                         if(Build.VERSION.SDK_INT < 28) {
                             checkPositionIsUsed(selected_image);
                             position_used[selected_image] = true;
@@ -285,67 +265,48 @@ public class FragmentDebugShop extends Fragment  implements View.OnClickListener
                     return;
                 }
                 else{
-                    if(isNormalAccount){
-                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Product").setValue(name_product);
-                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Description").setValue(description);
-                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Category").setValue(category);
-                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Price").setValue(price_product);
-                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Available").setValue(true);
-                        mDatabase.child("FireBaseUsers").child(USER_UID).child("countProduct").setValue(Integer.toString(1 + Integer.parseInt(product_count)));
-                        int number_image = 0;
-                        if(used_uri != null){
-                            for(Uri data_image: used_uri){
-                                number_image++;
-                                String number_string_image =  Integer.toString(number_image);
-                                StorageReference ubicationImagen = mStorage.child("FireBaseUsers").child(USER_UID).child("Product"+product_count).child("Image"+number_string_image+".png");
-                                String finalProduct_count = product_count;
-                                ubicationImagen.putFile(data_image).addOnSuccessListener(taskSnapshot -> ubicationImagen.getDownloadUrl().addOnCompleteListener(task2 -> {
-                                    Uri imageURL = task2.getResult();
-                                    mDatabase.child("Productos").child(USER_UID).child("Product"+finalProduct_count).child("Image"+number_string_image).setValue(imageURL.toString());
-                                    if(!product_save){
-                                        product_save = true;
-                                        ArrayList<String> one_use = new ArrayList<>();
-                                        one_use.add(imageURL.toString());
-                                        ProductData new_product = new ProductData(LOGGED_USER.getName(), USER_UID, name_product, description, category, Double.parseDouble(price_product), one_use, true);
-                                        ALL_PRODUCT.add(new_product);
-                                        Toast.makeText(FragmentDebugShop.this.getContext(), R.string.product_added, Toast.LENGTH_SHORT).show();
-                                    }
-                                }));
-                            }
+                    //Preparar la pantalla de carga
+                    AlertDialog loading_dialog;
+                    AlertDialog.Builder builder = new AlertDialog.Builder(FragmentDebugShop.this.getContext());
+                    builder.setCancelable(false);
+
+                    //Preparar para agregar el layout
+                    LayoutInflater inflater = getLayoutInflater();
+                    v = inflater.inflate(R.layout.resource_alertdialog_loading, null);
+
+                    //Configurando el layout en el view
+                    builder.setView(v);
+                    loading_dialog = builder.create();
+
+                    //Mostrar el layout
+                    loading_dialog.show();
+
+                    //Agregacion de producto
+                    product_count++;
+                    mDatabase.child("Productos").child("Product"+Integer.toString(product_count)).child("Product").setValue(name_product);
+                    mDatabase.child("Productos").child("Product"+Integer.toString(product_count)).child("Description").setValue(description);
+                    mDatabase.child("Productos").child("Product"+Integer.toString(product_count)).child("Category").setValue(category);
+                    mDatabase.child("Productos").child("Product"+Integer.toString(product_count)).child("Price").setValue(price_product);
+                    mDatabase.child("Productos").child("Product"+Integer.toString(product_count)).child("User_Name").setValue(LOGGED_USER.getName());
+                    mDatabase.child("Productos").child("Product"+Integer.toString(product_count)).child("User_UID").setValue(USER_UID);
+                    mDatabase.child("Productos").child("Product"+Integer.toString(product_count)).child("Available").setValue(true);
+                    mDatabase.child("Productos").child("countProduct").setValue(Integer.toString(product_count));
+                    int number_image = 0;
+                    if(used_uri != null){
+                        for(Uri data_image: used_uri){
+                            number_image++;
+                            String number_string_image =  Integer.toString(number_image);
+                            StorageReference ubicationImagen = mStorage.child("Productos").child("Product"+Integer.toString(product_count)).child("Image"+number_string_image+".png");
+                            ubicationImagen.putFile(data_image).addOnSuccessListener(taskSnapshot -> ubicationImagen.getDownloadUrl().addOnCompleteListener(task2 -> {
+                                Uri imageURL = task2.getResult();
+                                mDatabase.child("Productos").child("Product"+Integer.toString(product_count)).child("Image"+number_string_image).setValue(imageURL.toString());
+                                if(!product_save){
+                                    product_save = true;
+                                    loading_dialog.dismiss();
+                                    Toast.makeText(FragmentDebugShop.this.getContext(), R.string.product_added, Toast.LENGTH_SHORT).show();
+                                }
+                            }));
                         }
-                    }
-                    else if(isGoogleAccount){
-                        //Agregacion de producto
-                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Product").setValue(name_product);
-                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Description").setValue(description);
-                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Category").setValue(category);
-                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Price").setValue(price_product);
-                        mDatabase.child("Productos").child(USER_UID).child("Product"+product_count).child("Available").setValue(true);
-                        mDatabase.child("GoogleUsers").child(USER_UID).child("countProduct").setValue(Integer.toString(1 + Integer.parseInt(product_count)));
-                        int number_image = 0;
-                        if(used_uri != null){
-                            for(Uri data_image: used_uri){
-                                number_image++;
-                                String number_string_image =  Integer.toString(number_image);
-                                StorageReference ubicationImagen = mStorage.child("GoogleUsers").child(USER_UID).child("Product"+product_count).child("Image"+number_string_image+".png");
-                                String finalProduct_count = product_count;
-                                ubicationImagen.putFile(data_image).addOnSuccessListener(taskSnapshot -> ubicationImagen.getDownloadUrl().addOnCompleteListener(task2 -> {
-                                    Uri imageURL = task2.getResult();
-                                    mDatabase.child("Productos").child(USER_UID).child("Product"+finalProduct_count).child("Image"+number_string_image).setValue(imageURL.toString());
-                                    if(!product_save){
-                                        product_save = true;
-                                        ArrayList<String> one_use = new ArrayList<>();
-                                        one_use.add(imageURL.toString());
-                                        ProductData new_product = new ProductData(LOGGED_USER.getName(), USER_UID, name_product, description, category, Double.parseDouble(price_product), one_use, true);
-                                        ALL_PRODUCT.add(new_product);
-                                        Toast.makeText(FragmentDebugShop.this.getContext(), R.string.product_added, Toast.LENGTH_SHORT).show();
-                                    }
-                                }));
-                            }
-                        }
-                    }
-                    else{
-                        Toast.makeText(FragmentDebugShop.this.getContext(), "FATAL ERROR", Toast.LENGTH_SHORT).show();
                     }
 
                 }

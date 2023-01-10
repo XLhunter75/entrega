@@ -16,8 +16,8 @@
             android:layout_weight="1">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="200dp"
+                android:layout_height="250dp"
                 app:cardCornerRadius="20dp"
                 app:cardUseCompatPadding="true">
 

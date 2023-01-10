@@ -52,6 +52,8 @@
 
     <!-- String Carga-->
     <string name="loading">Cargando...</string>
+    <string name="uploading_product">Subiendo producto...</string>
+    <string name="loading_data">Cargando datos...</string>
 
     <!-- String nav Tienda menu -->
     <string name="home">Principal</string>

@@ -223,7 +223,6 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
 
-
     }
 
     private void firebaseWithGoogle(GoogleSignInAccount account){
