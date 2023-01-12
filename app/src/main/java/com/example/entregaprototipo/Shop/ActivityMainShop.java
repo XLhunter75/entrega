@@ -1,7 +1,6 @@
 package com.example.entregaprototipo.Shop;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -9,13 +8,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-import com.example.entregaprototipo.ProductModel.ProductData;
 import com.example.entregaprototipo.R;
 import com.example.entregaprototipo.UserModel.UserData;
 import com.example.entregaprototipo.databinding.ActivityMainShopBinding;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,18 +20,17 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
-
 public class ActivityMainShop extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-    private StorageReference mStorage;
-    private DatabaseReference mDatabase;
+    public static FirebaseAuth MAUTH;
+    public static  StorageReference MTSTORAGE;
+    public static  DatabaseReference MDATABASE;
 
     public static String USER_UID;
     public static boolean isGoogleAccount, isNormalAccount;
 
     public static UserData LOGGED_USER;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +46,9 @@ public class ActivityMainShop extends AppCompatActivity {
         isGoogleAccount = extras.getBoolean("googleAccount");
         isNormalAccount = extras.getBoolean("normalAccount");
 
-        mAuth = FirebaseAuth.getInstance();
-        mStorage = FirebaseStorage.getInstance().getReference();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        MAUTH = FirebaseAuth.getInstance();
+        MTSTORAGE = FirebaseStorage.getInstance().getReference();
+        MDATABASE = FirebaseDatabase.getInstance().getReference();
 
         if(isNormalAccount){
             fill_logged_user("FireBaseUsers");
@@ -78,7 +73,7 @@ public class ActivityMainShop extends AppCompatActivity {
                     replaceFragment(new FragmentCart());
                     break;
                 case R.id.shop_perfil:
-                    replaceFragment(new FragmentPerfil());
+                    replaceFragment(new FragmentProfile());
                     break;
                 case R.id.shop_debug:
                     replaceFragment(new FragmentDebugShop());
@@ -90,7 +85,7 @@ public class ActivityMainShop extends AppCompatActivity {
 
     public void fill_logged_user(String type_user){
         LOGGED_USER = new UserData("NO_NAME","NO_MAIL",false,0.00,0,"NO_ADDRESS",0,false,"NO_URL");
-        mDatabase.child(type_user).child(USER_UID).addValueEventListener(new ValueEventListener() {
+        MDATABASE.child(type_user).child(USER_UID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot data: snapshot.getChildren()){
@@ -142,5 +137,10 @@ public class ActivityMainShop extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainerView2, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onBackPressed(){
+        //Salir del programa
     }
 }

@@ -92,10 +92,19 @@
     <string name="no">No</string>
 
     <!-- String Fragment Perfil-->
-    <string name="tittle_perfil">Perfil</string>
-    <string name="perfil_name">Nombre:</string>
-    <string name="perfil_mail">Correo:</string>
-    <string name="quit">Salir</string>
+    <string name="transactions">Transacciones</string>
+    <string name="configuration">Configuracion</string>
+    <string name="exit_account">Salir de la cuenta</string>
+    <string name="bought">Compras</string>
+    <string name="sold">Vendidas</string>
+    <string name="wallet">Monedero</string>
+    <string name="configuration_account">Configuracion cuenta</string>
+    <string name="operation_product">Gestiones</string>
+    <string name="your_product">Tus productos</string>
+    <string name="all_your_product">Todos</string>
+    <string name="your_product_sold">Vendidos</string>
+    <string name="your_product_no_sold">Sin vender</string>
+
 
     <!-- String Final Test-->
     <string name="title_final">Este es la prueba del projecto</string>

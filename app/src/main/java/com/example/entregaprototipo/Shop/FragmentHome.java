@@ -1,7 +1,8 @@
 package com.example.entregaprototipo.Shop;
 
+import static com.example.entregaprototipo.Shop.ActivityMainShop.MDATABASE;
+
 import android.app.AlertDialog;
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,28 +19,19 @@ import android.widget.TextView;
 import com.example.entregaprototipo.Adapters.AdpShop;
 import com.example.entregaprototipo.ProductModel.ProductData;
 import com.example.entregaprototipo.R;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class FragmentHome extends Fragment {
 
-    public static ArrayList<ProductData> registered_products;
+    public static ArrayList<ProductData> REGISTERED_PRODUCTS;
 
     private ArrayList<ProductData> all_products;
     private ArrayList<ProductData> random_popular;
-    private FirebaseAuth mAuth;
-    private StorageReference mStorage;
-    private DatabaseReference mDatabase;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,10 +39,6 @@ public class FragmentHome extends Fragment {
 
         all_products = new ArrayList<>();
         random_popular = new ArrayList<>();
-
-        mAuth = FirebaseAuth.getInstance();
-        mStorage = FirebaseStorage.getInstance().getReference();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         //Preparar la pantalla de carga
         AlertDialog loading_dialog;
@@ -67,7 +55,7 @@ public class FragmentHome extends Fragment {
         builder.setView(loading_v);
         loading_dialog = builder.create();
 
-        mDatabase.child("Productos").addListenerForSingleValueEvent(new ValueEventListener() {
+        MDATABASE.child("Productos").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //Mostrar el layout
@@ -127,7 +115,7 @@ public class FragmentHome extends Fragment {
                     }
                 }
 
-                registered_products = all_products;
+                REGISTERED_PRODUCTS = all_products;
 
                 //Elegir de manera aleatoria productos destacados
                 Random r = new Random();

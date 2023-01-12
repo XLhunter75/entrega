@@ -1,48 +1,30 @@
 package com.example.entregaprototipo.Shop;
 
-import static com.example.entregaprototipo.Shop.FragmentHome.registered_products;
+import static com.example.entregaprototipo.Shop.FragmentHome.REGISTERED_PRODUCTS;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.entregaprototipo.Adapters.AdpShop;
 import com.example.entregaprototipo.ProductModel.ProductData;
 import com.example.entregaprototipo.R;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
 public class FragmentCategory extends Fragment {
 
     private TabLayout tbItems;
-    private RecyclerView recyclerView;
     private ArrayList<ProductData> list_product;
     private ArrayList<ProductData> list_electronic, list_dress, list_book_music, list_collection, list_service, list_other;
-
-    private FirebaseAuth mAuth;
-    private StorageReference mStorage;
-    private DatabaseReference mDatabase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,7 +64,7 @@ public class FragmentCategory extends Fragment {
     }
 
     public void fillProduct(){
-        if(registered_products != null){
+        if(REGISTERED_PRODUCTS != null){
             list_product = new ArrayList<>();
             list_electronic = new ArrayList<>();
             list_dress = new ArrayList<>();
@@ -90,7 +72,7 @@ public class FragmentCategory extends Fragment {
             list_collection = new ArrayList<>();
             list_service = new ArrayList<>();
             list_other = new ArrayList<>();
-            for(ProductData product: registered_products){
+            for(ProductData product: REGISTERED_PRODUCTS){
                 switch (product.getProduct_category()){
                     case "Electronica": list_electronic.add(product);break;
                     case "Ropa": list_dress.add(product);break;

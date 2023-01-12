@@ -39,13 +39,15 @@
                     android:gravity="center"
                     android:paddingLeft="10dp"
                     android:text="Producto"
-                    android:textSize="35dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textSize="25dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.67"
+                    app:layout_constraintHorizontal_bias="0.745"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.252"></TextView>
+                    app:layout_constraintVertical_bias="0.25"></TextView>
 
                 <TextView
                     android:id="@+id/product_price"
@@ -53,15 +55,17 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:text="Precio"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:textColor="@color/black"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.522"
+                    app:layout_constraintHorizontal_bias="0.727"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.629"></TextView>
+                    app:layout_constraintVertical_bias="0.706"></TextView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 

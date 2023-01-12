@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.entregaprototipo.Shop.FragmentPerfil"
+        android:name="com.example.entregaprototipo.Shop.FragmentProfile"
         android:label="fragment_perfil"
         tools:layout="@layout/fragment_perfil" />
     <fragment

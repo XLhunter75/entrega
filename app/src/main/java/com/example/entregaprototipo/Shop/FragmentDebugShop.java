@@ -4,6 +4,9 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 import static com.example.entregaprototipo.Shop.ActivityMainShop.LOGGED_USER;
+import static com.example.entregaprototipo.Shop.ActivityMainShop.MAUTH;
+import static com.example.entregaprototipo.Shop.ActivityMainShop.MDATABASE;
+import static com.example.entregaprototipo.Shop.ActivityMainShop.MTSTORAGE;
 import static com.example.entregaprototipo.Shop.ActivityMainShop.USER_UID;
 import static com.example.entregaprototipo.Shop.ActivityMainShop.isGoogleAccount;
 import static com.example.entregaprototipo.Shop.ActivityMainShop.isNormalAccount;
@@ -57,10 +60,6 @@ import java.util.Random;
 
 public class FragmentDebugShop extends Fragment  implements View.OnClickListener {
 
-    private FirebaseAuth mAuth;
-    private StorageReference mStorage;
-    private DatabaseReference mDatabase;
-
     private EditText etName, etDescription, etPrice;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6,imageView7,imageView8;
     private int selected_image = 0;
@@ -109,12 +108,8 @@ public class FragmentDebugShop extends Fragment  implements View.OnClickListener
         ArrayAdapter<String> adaptador_spinner = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, categorias);
         spinnerCategory.setAdapter(adaptador_spinner);
 
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        mStorage = FirebaseStorage.getInstance().getReference();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("Productos").addListenerForSingleValueEvent(new ValueEventListener() {
+        MDATABASE.child("Productos").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot data : snapshot.getChildren()){
@@ -283,23 +278,23 @@ public class FragmentDebugShop extends Fragment  implements View.OnClickListener
 
                     //Agregacion de producto
                     product_count++;
-                    mDatabase.child("Productos").child("Product"+Integer.toString(product_count)).child("Product").setValue(name_product);
-                    mDatabase.child("Productos").child("Product"+Integer.toString(product_count)).child("Description").setValue(description);
-                    mDatabase.child("Productos").child("Product"+Integer.toString(product_count)).child("Category").setValue(category);
-                    mDatabase.child("Productos").child("Product"+Integer.toString(product_count)).child("Price").setValue(price_product);
-                    mDatabase.child("Productos").child("Product"+Integer.toString(product_count)).child("User_Name").setValue(LOGGED_USER.getName());
-                    mDatabase.child("Productos").child("Product"+Integer.toString(product_count)).child("User_UID").setValue(USER_UID);
-                    mDatabase.child("Productos").child("Product"+Integer.toString(product_count)).child("Available").setValue(true);
-                    mDatabase.child("Productos").child("countProduct").setValue(Integer.toString(product_count));
+                    MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("Product").setValue(name_product);
+                    MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("Description").setValue(description);
+                    MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("Category").setValue(category);
+                    MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("Price").setValue(price_product);
+                    MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("User_Name").setValue(LOGGED_USER.getName());
+                    MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("User_UID").setValue(USER_UID);
+                    MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("Available").setValue(true);
+                    MDATABASE.child("Productos").child("countProduct").setValue(Integer.toString(product_count));
                     int number_image = 0;
                     if(used_uri != null){
                         for(Uri data_image: used_uri){
                             number_image++;
                             String number_string_image =  Integer.toString(number_image);
-                            StorageReference ubicationImagen = mStorage.child("Productos").child("Product"+Integer.toString(product_count)).child("Image"+number_string_image+".png");
+                            StorageReference ubicationImagen = MTSTORAGE.child("Productos").child("Product"+Integer.toString(product_count)).child("Image"+number_string_image+".png");
                             ubicationImagen.putFile(data_image).addOnSuccessListener(taskSnapshot -> ubicationImagen.getDownloadUrl().addOnCompleteListener(task2 -> {
                                 Uri imageURL = task2.getResult();
-                                mDatabase.child("Productos").child("Product"+Integer.toString(product_count)).child("Image"+number_string_image).setValue(imageURL.toString());
+                                MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("Image"+number_string_image).setValue(imageURL.toString());
                                 if(!product_save){
                                     product_save = true;
                                     loading_dialog.dismiss();
