@@ -38,13 +38,17 @@ public class AdpShop extends RecyclerView.Adapter<AdpShop.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = mInflater.inflate(R.layout.resource_card_product_box, null);
         if(this.useLargeCard){
-            view = mInflater.inflate(R.layout.resource_card_product_large, null);
+            View view = mInflater.inflate(R.layout.resource_card_product_large, null);
+            return new AdpShop.ViewHolder(view);
         } else if (this.useBoxCard) {
-            view = mInflater.inflate(R.layout.resource_card_product_box, null);
+            View view = mInflater.inflate(R.layout.resource_card_product_box, null);
+            return new AdpShop.ViewHolder(view);
         }
-        return new AdpShop.ViewHolder(view);
+        else{
+            View view = mInflater.inflate(R.layout.resource_card_product_box, null);
+            return new AdpShop.ViewHolder(view);
+        }
     }
 
     @Override

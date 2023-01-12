@@ -32,6 +32,8 @@ import java.util.Random;
 
 public class FragmentHome extends Fragment {
 
+    public static ArrayList<ProductData> registered_products;
+
     private ArrayList<ProductData> all_products;
     private ArrayList<ProductData> random_popular;
     private FirebaseAuth mAuth;
@@ -124,6 +126,8 @@ public class FragmentHome extends Fragment {
                         all_products.add(new_product);
                     }
                 }
+
+                registered_products = all_products;
 
                 //Elegir de manera aleatoria productos destacados
                 Random r = new Random();
