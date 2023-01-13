@@ -109,6 +109,10 @@ public class FragmentHome extends Fragment {
                                     data.getKey().equals("Image8") || data.getKey().equals("Image1")){
                                 url_main_image_data.add(data.getValue().toString());
                             }
+                            else{
+                                //En caso de haber errores un product, por ejemplo que falte un dato
+                                break;
+                            }
                         }
                         ProductData new_product = new ProductData(user_name, uid_user, product_name, product_description, product_category, product_price, url_main_image_data, product_available);
                         all_products.add(new_product);

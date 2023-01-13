@@ -25,7 +25,7 @@ public class FragmentProfile extends Fragment implements View.OnClickListener{
 
     private TextView tvName;
     private ImageView ivProfile;
-    private Button btBought, btWallet, btExit, btConfiguration, btYourProducts;
+    private Button btBought, btSold, btWallet, btExit, btConfiguration, btYourProducts;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,6 +36,7 @@ public class FragmentProfile extends Fragment implements View.OnClickListener{
         ivProfile = v.findViewById(R.id.profile_image_user);
 
         btBought = v.findViewById(R.id.btBought);
+        btSold = v.findViewById(R.id.btSold);
         btWallet = v.findViewById(R.id.btWallet);
         btYourProducts = v.findViewById(R.id.btYourProducts);
         btConfiguration = v.findViewById(R.id.btConfiguration);
@@ -46,6 +47,7 @@ public class FragmentProfile extends Fragment implements View.OnClickListener{
         btConfiguration.setOnClickListener(this);
         btYourProducts.setOnClickListener(this);
         btWallet.setOnClickListener(this);
+        btSold.setOnClickListener(this);
 
         //Rellenar el perfil
         tvName.setText(LOGGED_USER.getName());
@@ -62,6 +64,8 @@ public class FragmentProfile extends Fragment implements View.OnClickListener{
     public void onClick(View v){
         switch (v.getId()){
             case R.id.btBought:
+                break;
+            case R.id.btSold:
                 break;
             case R.id.btWallet:
                 break;

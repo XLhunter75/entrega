@@ -70,13 +70,13 @@ public class ActivityMainShop extends AppCompatActivity {
                     replaceFragment(new FragmentCategory());
                     break;
                 case R.id.shop_cart:
-                    replaceFragment(new FragmentCart());
+                    replaceFragment(new FragmentChat());
                     break;
                 case R.id.shop_perfil:
                     replaceFragment(new FragmentProfile());
                     break;
                 case R.id.shop_debug:
-                    replaceFragment(new FragmentDebugShop());
+                    replaceFragment(new FragmentAddProduct());
                     break;
             }
             return true;

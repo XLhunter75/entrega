@@ -74,7 +74,7 @@
             android:id="@+id/buttonLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/orange"
+            android:background="@drawable/buttom_style_normal"
             android:text="@string/confirme"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -93,7 +93,7 @@
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:textColorHint="@color/orange_light"
+            android:textColorHint="@color/darker_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.505"
@@ -141,7 +141,7 @@
             android:ems="10"
             android:hint="@string/new_mail"
             android:inputType="textEmailAddress"
-            android:textColorHint="@color/orange_light"
+            android:textColorHint="@color/darker_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.505"
@@ -169,7 +169,7 @@
             android:layout_marginStart="8dp"
             android:lineSpacingExtra="8sp"
             android:text="@string/register"
-            android:textColor="@color/orange"
+            android:textColor="@color/red"
             android:clickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView6"
@@ -196,7 +196,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.062" />
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/btGoogle"

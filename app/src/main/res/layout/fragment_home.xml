@@ -28,11 +28,13 @@ tools:context=".Shop.FragmentHome">
             android:background="@drawable/edittext_style"
             android:backgroundTint="@color/white_gray"
             android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="10dp"
             android:ems="10"
             android:hint="@string/search"
             android:inputType="textPersonName"
+            android:minHeight="48dp"
             android:padding="5dp"
-            android:textSize="15dp" />
+            android:textSize="20dp" />
     </LinearLayout>
 
     <ScrollView
@@ -59,7 +61,7 @@ tools:context=".Shop.FragmentHome">
                 android:paddingVertical="20dp"
                 android:text="@string/popular_products"
                 android:textColor="@color/black"
-                android:textSize="20dp"
+                android:textSize="25dp"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -75,7 +77,7 @@ tools:context=".Shop.FragmentHome">
                 android:paddingVertical="20dp"
                 android:text="@string/title_home"
                 android:textColor="@color/black"
-                android:textSize="20dp"
+                android:textSize="25dp"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView

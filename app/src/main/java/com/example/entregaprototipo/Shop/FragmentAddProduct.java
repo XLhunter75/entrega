@@ -4,15 +4,11 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 import static com.example.entregaprototipo.Shop.ActivityMainShop.LOGGED_USER;
-import static com.example.entregaprototipo.Shop.ActivityMainShop.MAUTH;
 import static com.example.entregaprototipo.Shop.ActivityMainShop.MDATABASE;
 import static com.example.entregaprototipo.Shop.ActivityMainShop.MTSTORAGE;
 import static com.example.entregaprototipo.Shop.ActivityMainShop.USER_UID;
-import static com.example.entregaprototipo.Shop.ActivityMainShop.isGoogleAccount;
-import static com.example.entregaprototipo.Shop.ActivityMainShop.isNormalAccount;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -39,26 +35,16 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.entregaprototipo.LoginRegister.ActivityRegister;
-import com.example.entregaprototipo.ProductModel.ProductData;
 import com.example.entregaprototipo.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
-public class FragmentDebugShop extends Fragment  implements View.OnClickListener {
+public class FragmentAddProduct extends Fragment  implements View.OnClickListener {
 
     private EditText etName, etDescription, etPrice;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6,imageView7,imageView8;
@@ -77,7 +63,7 @@ public class FragmentDebugShop extends Fragment  implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_debug_shop, container, false);
+        View v = inflater.inflate(R.layout.fragment_add_product, container, false);
 
         etName = v.findViewById(R.id.etNombreAgregar);
         etDescription = v.findViewById(R.id.etDescripcionAgregar);
@@ -222,7 +208,7 @@ public class FragmentDebugShop extends Fragment  implements View.OnClickListener
                     }
                 }
                 else if(result.getResultCode() == RESULT_CANCELED){
-                    Toast.makeText(FragmentDebugShop.this.getContext(),"Cancelado...",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FragmentAddProduct.this.getContext(),"Cancelado...",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -236,33 +222,33 @@ public class FragmentDebugShop extends Fragment  implements View.OnClickListener
                 String price_product = etPrice.getText().toString();
 
                 if(name_product.isEmpty()){
-                    Toast.makeText(FragmentDebugShop.this.getContext(),  R.string.product_name_empty, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FragmentAddProduct.this.getContext(),  R.string.product_name_empty, Toast.LENGTH_SHORT).show();
                     etName.requestFocus();
                     return;
                 }
                 else if(description.isEmpty()){
-                    Toast.makeText(FragmentDebugShop.this.getContext(), R.string.product_description_empty, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FragmentAddProduct.this.getContext(), R.string.product_description_empty, Toast.LENGTH_SHORT).show();
                     etDescription.requestFocus();
                     return;
                 }
                 else if(category.isEmpty()){
-                    Toast.makeText(FragmentDebugShop.this.getContext(), R.string.product_category_empty, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FragmentAddProduct.this.getContext(), R.string.product_category_empty, Toast.LENGTH_SHORT).show();
                     spinnerCategory.requestFocus();
                     return;
                 }
                 else if(price_product.isEmpty()){
-                    Toast.makeText(FragmentDebugShop.this.getContext(), R.string.product_category_empty, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FragmentAddProduct.this.getContext(), R.string.product_category_empty, Toast.LENGTH_SHORT).show();
                     etPrice.requestFocus();
                     return;
                 }
                 else if(used_uri.size() == 0){
-                    Toast.makeText(FragmentDebugShop.this.getContext(), R.string.product_image_empty, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FragmentAddProduct.this.getContext(), R.string.product_image_empty, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 else{
                     //Preparar la pantalla de carga
                     AlertDialog loading_dialog;
-                    AlertDialog.Builder builder = new AlertDialog.Builder(FragmentDebugShop.this.getContext());
+                    AlertDialog.Builder builder = new AlertDialog.Builder(FragmentAddProduct.this.getContext());
                     builder.setCancelable(false);
 
                     //Preparar para agregar el layout
@@ -298,7 +284,7 @@ public class FragmentDebugShop extends Fragment  implements View.OnClickListener
                                 if(!product_save){
                                     product_save = true;
                                     loading_dialog.dismiss();
-                                    Toast.makeText(FragmentDebugShop.this.getContext(), R.string.product_added, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(FragmentAddProduct.this.getContext(), R.string.product_added, Toast.LENGTH_SHORT).show();
                                 }
                             }));
                         }

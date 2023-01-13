@@ -17,9 +17,9 @@
         tools:layout="@layout/fragment_category" />
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.example.entregaprototipo.Shop.FragmentCart"
+        android:name="com.example.entregaprototipo.Shop.FragmentChat"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_chat" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.entregaprototipo.Shop.FragmentProfile"
@@ -27,8 +27,8 @@
         tools:layout="@layout/fragment_perfil" />
     <fragment
         android:id="@+id/debugFragment"
-        android:name="com.example.entregaprototipo.Shop.FragmentDebugShop"
+        android:name="com.example.entregaprototipo.Shop.FragmentAddProduct"
         android:label="fragment_debug"
-        tools:layout="@layout/fragment_debug_shop" />
+        tools:layout="@layout/fragment_add_product" />
 
 </navigation>

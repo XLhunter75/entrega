@@ -10,16 +10,16 @@
         android:icon="@drawable/ic_category_shop"
         android:id="@+id/shop_category"/>
     <item
-        android:title="@string/cart"
-        android:icon="@drawable/ic_cart_shop"
+        android:title="@string/add_product"
+        android:icon="@drawable/ic_add"
+        android:id="@+id/shop_debug"/>
+    <item
+        android:title="@string/message"
+        android:icon="@drawable/ic_chat"
         android:id="@+id/shop_cart"/>
     <item
         android:title="@string/perfil"
         android:icon="@drawable/ic_perfil_shop"
         android:id="@+id/shop_perfil"/>
-    <item
-        android:title="Debug"
-        android:icon="@drawable/ic_debug_shop"
-        android:id="@+id/shop_debug"/>
 
 </menu>

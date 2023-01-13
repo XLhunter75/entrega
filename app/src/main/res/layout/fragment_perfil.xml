@@ -62,6 +62,18 @@
         android:text="@string/bought" />
 
     <Button
+        android:id="@+id/btSold"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:padding="15dp"
+        android:drawableStart="@drawable/ic_sold"
+        android:drawableEnd="@drawable/ic_foward"
+        android:drawablePadding="10dp"
+        android:text="@string/sold" />
+
+    <Button
         android:id="@+id/btWallet"
         android:background="@color/white"
         android:layout_width="match_parent"
