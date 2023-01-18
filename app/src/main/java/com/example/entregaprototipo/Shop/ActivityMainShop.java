@@ -20,16 +20,19 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+
 public class ActivityMainShop extends AppCompatActivity {
 
     public static FirebaseAuth MAUTH;
-    public static  StorageReference MTSTORAGE;
-    public static  DatabaseReference MDATABASE;
+    public static StorageReference MTSTORAGE;
+    public static DatabaseReference MDATABASE;
 
     public static String USER_UID;
     public static boolean isGoogleAccount, isNormalAccount;
 
     public static UserData LOGGED_USER;
+    public static ArrayList<UserData> ALL_USERS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class ActivityMainShop extends AppCompatActivity {
 
         isGoogleAccount = false;
         isNormalAccount = false;
+        ALL_USERS = new ArrayList<>();
 
         Bundle extras = getIntent().getExtras();
         USER_UID = extras.getString("UIDusuario");
@@ -56,6 +60,8 @@ public class ActivityMainShop extends AppCompatActivity {
         else if(isGoogleAccount){
             fill_logged_user("GoogleUsers");
         }
+
+        fill_list_user();
 
         //Creacion de campos para cada fragmento
         //Haber incluido en Graddle(app) viewBiding
@@ -132,13 +138,112 @@ public class ActivityMainShop extends AppCompatActivity {
         });
     }
 
+    public void fill_list_user(){
+        UserData new_user = new UserData("NO_NAME","NO_MAIL",false,0.00,0,"NO_ADDRESS",0,false,"NO_URL");
+        MDATABASE.child("FireBaseUsers").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot user: snapshot.getChildren()){
+                    for(DataSnapshot data: user.getChildren()){
+                        if(data.getKey().equals("address")){
+                            new_user.setAddress(data.getValue().toString());
+                        }
+                        else if(data.getKey().equals("name")){
+                            new_user.setName(data.getValue().toString());
+                        }
+                        else if(data.getKey().equals("email")){
+                            new_user.setMail(data.getValue().toString());
+                            new_user.setGoogleAccount(false);
+                        }
+                        else if(data.getKey().equals("emailGoogle")){
+                            new_user.setMail(data.getValue().toString());
+                            new_user.setGoogleAccount(true);
+                        }
+                        else if(data.getKey().equals("money")){
+                            new_user.setCash(Double.parseDouble(data.getValue().toString()));
+                        }
+                        else if(data.getKey().equals("phone")){
+                            new_user.setPhoneNumber(Integer.parseInt(data.getValue().toString()));
+                        }
+                        else if(data.getKey().equals("countProduct")){
+                            new_user.setCountProduct(Integer.parseInt(data.getValue().toString()));
+                        }
+                        else if(data.getKey().equals("isRememberMe")){
+                            if(data.getValue().toString().equals("true")){
+                                new_user.setRememberMe(true);
+                            }
+                            else if(data.getValue().toString().equals("false")){
+                                new_user.setRememberMe(false);
+                            }
+                        }
+                        else if(data.getKey().equals("pic")){
+                            new_user.setProfileURL(data.getValue().toString());
+                        }
+                    }
+                    ALL_USERS.add(new_user);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        MDATABASE.child("GoogleUsers").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot user: snapshot.getChildren()){
+                    for(DataSnapshot data: user.getChildren()){
+                        if(data.getKey().equals("address")){
+                            new_user.setAddress(data.getValue().toString());
+                        }
+                        else if(data.getKey().equals("name")){
+                            new_user.setName(data.getValue().toString());
+                        }
+                        else if(data.getKey().equals("email")){
+                            new_user.setMail(data.getValue().toString());
+                            new_user.setGoogleAccount(false);
+                        }
+                        else if(data.getKey().equals("emailGoogle")){
+                            new_user.setMail(data.getValue().toString());
+                            new_user.setGoogleAccount(true);
+                        }
+                        else if(data.getKey().equals("money")){
+                            new_user.setCash(Double.parseDouble(data.getValue().toString()));
+                        }
+                        else if(data.getKey().equals("phone")){
+                            new_user.setPhoneNumber(Integer.parseInt(data.getValue().toString()));
+                        }
+                        else if(data.getKey().equals("countProduct")){
+                            new_user.setCountProduct(Integer.parseInt(data.getValue().toString()));
+                        }
+                        else if(data.getKey().equals("isRememberMe")){
+                            if(data.getValue().toString().equals("true")){
+                                new_user.setRememberMe(true);
+                            }
+                            else if(data.getValue().toString().equals("false")){
+                                new_user.setRememberMe(false);
+                            }
+                        }
+                        else if(data.getKey().equals("pic")){
+                            new_user.setProfileURL(data.getValue().toString());
+                        }
+                    }
+                    ALL_USERS.add(new_user);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainerView2, fragment);
         fragmentTransaction.commit();
     }
-
     @Override
     public void onBackPressed(){
         //Salir del programa

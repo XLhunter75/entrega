@@ -1,5 +1,6 @@
 package com.example.entregaprototipo.Shop;
 
+import static com.example.entregaprototipo.Shop.ActivityMainShop.ALL_USERS;
 import static com.example.entregaprototipo.Shop.ActivityMainShop.MDATABASE;
 
 import android.app.AlertDialog;
@@ -14,11 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.entregaprototipo.Adapters.AdpShop;
 import com.example.entregaprototipo.ProductModel.ProductData;
 import com.example.entregaprototipo.R;
+import com.example.entregaprototipo.UserModel.UserData;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -29,13 +33,22 @@ import java.util.Random;
 public class FragmentHome extends Fragment {
 
     public static ArrayList<ProductData> REGISTERED_PRODUCTS;
+    public static ArrayList<ProductData> FOUND_PRODUCTS;
+    public static ArrayList<UserData> FOUND_USERS;
 
     private ArrayList<ProductData> all_products;
     private ArrayList<ProductData> random_popular;
+
+    private Button btSearched;
+    private EditText etWord;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
+
+        btSearched = v.findViewById(R.id.btSearch);
+        etWord = v.findViewById(R.id.etSearch);
 
         all_products = new ArrayList<>();
         random_popular = new ArrayList<>();
@@ -55,6 +68,7 @@ public class FragmentHome extends Fragment {
         builder.setView(loading_v);
         loading_dialog = builder.create();
 
+        //Recoger todos los productos
         MDATABASE.child("Productos").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -139,6 +153,33 @@ public class FragmentHome extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        btSearched.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String word_search = etWord.getText().toString();
+
+                if(word_search.isEmpty()){
+                    return;
+                }
+                else{
+                    FOUND_PRODUCTS = new ArrayList<>();
+                    FOUND_USERS = new ArrayList<>();
+                    for(ProductData product: all_products){
+                        if(product.getProduct_name().contains(word_search)){
+                            FOUND_PRODUCTS.add(product);
+                        }
+                    }
+                    for(UserData user: ALL_USERS){
+                        if(user.getName().contains(word_search)){
+                            FOUND_USERS.add(user);
+                        }
+                    }
+
+                }
 
             }
         });
