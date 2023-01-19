@@ -29,32 +29,30 @@
                     <ImageView
                         android:id="@+id/image_product"
                         android:layout_width="150dp"
-                        android:layout_marginLeft="15dp"
                         android:layout_height="150dp"
+                        android:layout_marginLeft="15dp"
                         android:src="@drawable/ic_no_image"></ImageView>
 
                     <TextView
                         android:id="@+id/product_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Precio"
                         android:paddingLeft="10dp"
+                        android:text="Precio"
                         android:textColor="@color/black"
                         android:textSize="25dp"
-                        android:textStyle="bold">
-                    </TextView>
+                        android:textStyle="bold"></TextView>
 
                     <TextView
                         android:id="@+id/product_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nombre producto"
-                        android:paddingLeft="10dp"
-                        android:textColor="@color/black"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:textSize="20dp">
-                    </TextView>
+                        android:paddingLeft="10dp"
+                        android:text="Nombre producto"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"></TextView>
 
 
                 </LinearLayout>

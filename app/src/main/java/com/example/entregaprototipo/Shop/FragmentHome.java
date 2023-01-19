@@ -150,7 +150,7 @@ public class FragmentHome extends Fragment {
     public void createRecycleProductsA(@NonNull View v){
         AdpShop adpShop_adaptor = new AdpShop(v.getContext(), all_products,false,true);
         RecyclerView recyclerViewMain = v.findViewById(R.id.mainRecycleViewProducts);
-        recyclerViewMain.setLayoutManager(new GridLayoutManager(this.getContext(),2));
+        recyclerViewMain.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerViewMain.setAdapter(adpShop_adaptor);
 
         AdpShop adpShop_adaptor_2 = new AdpShop(v.getContext(), random_popular,false,true);

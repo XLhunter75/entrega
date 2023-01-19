@@ -68,6 +68,11 @@
     <string name="goBack">Volver</string>
     <string name="added">Producto agregado</string>
 
+    <!-- String Item Placeholder-->
+    <string name="itemName">Smart Watch</string>
+    <string name="itemCategory">Electrónica</string>
+    <string name="itemPrice">€400</string>
+
     <!-- String Fragment Home-->
     <string name="search">Buscar un producto</string>
     <string name="recently_viewed">Vistos recientemente</string>
@@ -106,7 +111,6 @@
     <string name="all_your_product">Todos</string>
     <string name="your_product_sold">Vendidos</string>
     <string name="your_product_no_sold">Sin vender</string>
-
 
     <!-- String Final Test-->
     <string name="title_final">Este es la prueba del projecto</string>

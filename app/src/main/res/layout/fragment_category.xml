@@ -25,48 +25,54 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutCategory"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        app:tabMode="scrollable"
+        style="@style/customChipStyle"
+        android:layout_width="match_parent"
+        app:tabMaxWidth="100dp"
+        app:tabMinWidth="100dp"
+        android:layout_height="120dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabBackground="@drawable/tab_selected_background"
+        app:tabTextAppearance="@style/CustomTabLayoutTextStyle"
+        app:tabIconTint="@color/tab_text_color_selector"
+        app:tabMode="scrollable">
 
         <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/customChipStyle"
             android:icon="@drawable/ic_electronic"
             android:text="@string/category_electronic" />
 
         <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
+            style="@style/customChipStyle"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:text="@string/category_book_film_music"
-            android:icon="@drawable/ic_audio_book"/>
+            android:icon="@drawable/ic_audio_book"
+            android:text="@string/category_book_film_music" />
 
         <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:text="@string/category_dress"
-            android:icon="@drawable/ic_dress"/>
+            android:icon="@drawable/ic_dress"
+            android:text="@string/category_dress" />
 
         <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:text="@string/category_collection"
-            android:icon="@drawable/ic_collection"/>
+            android:icon="@drawable/ic_collection"
+            android:text="@string/category_collection" />
 
         <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:text="@string/category_services"
-            android:icon="@drawable/ic_services"/>
+            android:icon="@drawable/ic_services"
+            android:text="@string/category_services" />
 
         <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:text="@string/category_others"
-            android:icon="@drawable/ic_other"/>
+            android:icon="@drawable/ic_other"
+            android:text="@string/category_others" />
 
     </com.google.android.material.tabs.TabLayout>
 

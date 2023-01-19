@@ -41,7 +41,7 @@ public class AdpShop extends RecyclerView.Adapter<AdpShop.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         if(this.useLargeCard){
-            View view = mInflater.inflate(R.layout.resource_card_product_large, null);
+            View view = mInflater.inflate(R.layout.resourse_card_popular_product, null);
             return new AdpShop.ViewHolder(view);
         } else if (this.useBoxCard) {
             View view = mInflater.inflate(R.layout.resource_card_product_box, null);
