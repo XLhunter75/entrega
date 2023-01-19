@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:background="@drawable/buttom_style_normal"
+            android:background="@drawable/button_style_normal"
             android:layout_marginTop="10dp"
             android:text="@string/addCart" />
 
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:background="@drawable/buttom_style_normal"
+            android:background="@drawable/button_style_normal"
             android:layout_marginTop="10dp"
             android:text="@string/goBack" />
     </LinearLayout>

@@ -78,6 +78,9 @@
     <string name="recently_viewed">Vistos recientemente</string>
     <string name="popular_products">Productos destacados</string>
     <string name="title_home">Todos los productos</string>
+    <string name="results">Resultados</string>
+    <string name="products">Productos</string>
+    <string name="users">Usuarios</string>
 
     <!-- String Fragment Category-->
     <string name="title_category">Productos por categoria</string>
