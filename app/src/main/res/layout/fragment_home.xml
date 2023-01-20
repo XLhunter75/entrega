@@ -15,7 +15,6 @@
         android:layout_height="0dp"
         android:fillViewport="true"
         android:isScrollContainer="true"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -24,6 +23,20 @@
             android:layout_marginHorizontal="10dp"
             android:orientation="vertical"
             android:paddingTop="10dp">
+
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginTop="10dp"
+                app:iss_auto_cycle="true"
+                app:iss_corner_radius="20"
+                app:iss_delay="0"
+                app:iss_period="3000"
+                app:iss_text_align=""
+                app:iss_title_background="@drawable/button_style_normal">
+
+            </com.denzcoskun.imageslider.ImageSlider>
 
             <TextView
                 android:id="@+id/textView21"

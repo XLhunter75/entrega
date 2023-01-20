@@ -15,10 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.entregaprototipo.Adapters.AdpShop;
 import com.example.entregaprototipo.ProductModel.ProductData;
 import com.example.entregaprototipo.R;
@@ -28,6 +32,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class FragmentHome extends Fragment {
@@ -42,6 +47,8 @@ public class FragmentHome extends Fragment {
     private Button btSearched;
     private EditText etWord;
 
+    private ImageSlider imageSlider;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,6 +59,12 @@ public class FragmentHome extends Fragment {
 
         all_products = new ArrayList<>();
         random_popular = new ArrayList<>();
+
+        imageSlider = v.findViewById(R.id.slider);
+        List<SlideModel> slideModels = new ArrayList<>();
+
+
+
 
         //Preparar la pantalla de carga
         AlertDialog loading_dialog;
@@ -137,6 +150,7 @@ public class FragmentHome extends Fragment {
 
                 //Elegir de manera aleatoria productos destacados
                 Random r = new Random();
+                Random r2 = new Random();
                 ArrayList<Integer> used_product = new ArrayList<>();
                 for(int i = 0; i < 3; i++){
                     int selected_product = r.nextInt(all_products.size());
@@ -145,10 +159,16 @@ public class FragmentHome extends Fragment {
                     }
                     used_product.add(selected_product);
                     random_popular.add(all_products.get(selected_product));
+
+                    //AÑADE IMAGENES AL SLIDER
+                    slideModels.add(new SlideModel(all_products.get(i)
+                            .getUrl_set_image_data().get(0), "Novedades: " + random_popular.get(i).getProduct_name(), ScaleTypes.CENTER_INSIDE));
                 }
 
                 createRecycleProductsA(v);
                 loading_dialog.dismiss();
+                //LISTA DE IMAGENES DEL SLIDER
+                imageSlider.setImageList(slideModels);
             }
 
             @Override
