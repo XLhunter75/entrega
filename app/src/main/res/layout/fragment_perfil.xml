@@ -7,35 +7,37 @@
     android:orientation="vertical"
     tools:context=".Shop.FragmentProfile">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:paddingBottom="10dp">
 
         <ImageView
             android:id="@+id/profile_image_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="37dp"
-            android:layout_marginEnd="246dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/profile_name_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="44dp"
-            android:layout_marginEnd="95dp"
+            android:layout_marginEnd="152dp"
             android:text="TextView"
             android:textSize="25dp"
-            android:textStyle="bold" />
-    </RelativeLayout>
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/textView18"
@@ -51,38 +53,41 @@
 
     <Button
         android:id="@+id/btBought"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="textStart"
-        android:padding="15dp"
+        android:background="@color/white"
         android:drawableStart="@drawable/ic_bought"
         android:drawableEnd="@drawable/ic_foward"
         android:drawablePadding="10dp"
-        android:text="@string/bought" />
+        android:paddingLeft="30dp"
+        android:paddingRight="20dp"
+        android:text="@string/bought"
+        android:textAlignment="textStart" />
 
     <Button
         android:id="@+id/btSold"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="textStart"
-        android:padding="15dp"
+        android:background="@color/white"
         android:drawableStart="@drawable/ic_sold"
         android:drawableEnd="@drawable/ic_foward"
         android:drawablePadding="10dp"
-        android:text="@string/sold" />
+        android:paddingLeft="30dp"
+        android:paddingRight="20dp"
+        android:text="@string/sold"
+        android:textAlignment="textStart" />
 
     <Button
         android:id="@+id/btWallet"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="textStart"
-        android:padding="15dp"
+        android:background="@color/white"
         android:drawableStart="@drawable/ic_wallet"
         android:drawablePadding="10dp"
-        android:text="@string/wallet" />
+        android:paddingLeft="30dp"
+        android:paddingRight="20dp"
+        android:text="@string/wallet"
+        android:textAlignment="textStart" />
 
     <TextView
         android:id="@+id/textView20"
@@ -98,15 +103,16 @@
 
     <Button
         android:id="@+id/btYourProducts"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="textStart"
-        android:padding="15dp"
+        android:background="@color/white"
         android:drawableStart="@drawable/ic_product"
         android:drawableEnd="@drawable/ic_foward"
         android:drawablePadding="10dp"
-        android:text="@string/your_product" />
+        android:paddingLeft="30dp"
+        android:paddingRight="20dp"
+        android:text="@string/your_product"
+        android:textAlignment="textStart" />
 
 
     <TextView
@@ -123,26 +129,29 @@
 
     <Button
         android:id="@+id/btConfiguration"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="textStart"
-        android:padding="15dp"
+        android:background="@color/white"
         android:drawableStart="@drawable/ic_configuration"
         android:drawableEnd="@drawable/ic_foward"
         android:drawablePadding="10dp"
-        android:text="@string/configuration_account" />
+        android:paddingLeft="30dp"
+        android:paddingRight="20dp"
+        android:text="@string/configuration_account"
+        android:textAlignment="textStart" />
+
     <Button
         android:id="@+id/btExit"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="textStart"
-        android:padding="15dp"
+        android:background="@color/white"
         android:drawableStart="@drawable/ic_exit_account"
         android:drawableEnd="@drawable/ic_foward"
         android:drawablePadding="10dp"
-        android:text="@string/exit_account" />
+        android:paddingLeft="30dp"
+        android:paddingRight="20dp"
+        android:text="@string/exit_account"
+        android:textAlignment="textStart" />
 
 
 
