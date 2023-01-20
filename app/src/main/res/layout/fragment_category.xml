@@ -9,34 +9,116 @@
     tools:context=".Shop.FragmentCategory">
 
     <!-- TODO: Update blank fragment layout -->
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recicleViewProducts2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:paddingHorizontal="10dp"
-        android:paddingTop="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="scroll"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight="match_constraint"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayoutCategory"
-        app:layout_constraintWidth="match_constraint" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/back_tabs"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum=".8">
+
+                <TextView
+                    android:id="@+id/select"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".2"
+                    android:background="@drawable/back_select"
+                    android:text="" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".2"
+                    android:text="" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".2"
+                    android:text="" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".2"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum=".8">
+
+                <TextView
+                    android:id="@+id/item1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".2"
+                    android:gravity="center"
+                    android:text="item1"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/item2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".2"
+                    android:gravity="center"
+                    android:text="item2" />
+
+                <TextView
+                    android:id="@+id/item3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".2"
+                    android:gravity="center"
+                    android:text="item3" />
+
+                <TextView
+                    android:id="@+id/item4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".2"
+                    android:gravity="center"
+                    android:text="item4" />
+
+            </LinearLayout>
+        </FrameLayout>
+
+    </HorizontalScrollView>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutCategory"
         style="@style/customChipStyle"
         android:layout_width="match_parent"
-        app:tabMaxWidth="100dp"
-        app:tabMinWidth="100dp"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
+        android:background="@drawable/back_tabs"
         app:tabBackground="@drawable/tab_selected_background"
-        app:tabTextAppearance="@style/CustomTabLayoutTextStyle"
         app:tabIconTint="@color/tab_text_color_selector"
-        app:tabMode="scrollable">
+        app:tabMaxWidth="100dp"
+        app:tabMinWidth="100dp"
+        app:tabMode="scrollable"
+        app:tabTextAppearance="@style/CustomTabLayoutTextStyle">
 
         <com.google.android.material.tabs.TabItem
             style="@style/customChipStyle"
@@ -75,5 +157,18 @@
             android:text="@string/category_others" />
 
     </com.google.android.material.tabs.TabLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recicleViewProducts2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight="match_constraint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayoutCategory"
+        app:layout_constraintWidth="match_constraint" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
