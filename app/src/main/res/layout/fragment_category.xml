@@ -9,110 +9,17 @@
     tools:context=".Shop.FragmentCategory">
 
     <!-- TODO: Update blank fragment layout -->
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:contentDescription="scroll"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <FrameLayout
-            android:id="@+id/frameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/back_tabs"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum=".8">
-
-                <TextView
-                    android:id="@+id/select"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".2"
-                    android:background="@drawable/back_select"
-                    android:text="" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".2"
-                    android:text="" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".2"
-                    android:text="" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".2"
-                    android:text="" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum=".8">
-
-                <TextView
-                    android:id="@+id/item1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".2"
-                    android:gravity="center"
-                    android:text="item1"
-                    android:textColor="@android:color/white" />
-
-                <TextView
-                    android:id="@+id/item2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".2"
-                    android:gravity="center"
-                    android:text="item2" />
-
-                <TextView
-                    android:id="@+id/item3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".2"
-                    android:gravity="center"
-                    android:text="item3" />
-
-                <TextView
-                    android:id="@+id/item4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".2"
-                    android:gravity="center"
-                    android:text="item4" />
-
-            </LinearLayout>
-        </FrameLayout>
-
-    </HorizontalScrollView>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutCategory"
         style="@style/customChipStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:background="@drawable/back_tabs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
-        android:background="@drawable/back_tabs"
+        app:layout_constraintTop_toTopOf="parent"
         app:tabBackground="@drawable/tab_selected_background"
         app:tabIconTint="@color/tab_text_color_selector"
         app:tabMaxWidth="100dp"

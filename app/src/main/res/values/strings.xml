@@ -86,7 +86,7 @@
     <string name="title_category">Productos por categoria</string>
     <string name="category_electronic">Electronica</string>
     <string name="category_dress">Ropa</string>
-    <string name="category_book_film_music">Libro/Cine/Musica</string>
+    <string name="category_book_film_music">Entretenimiento</string>
     <string name="category_collection">Coleccion</string>
     <string name="category_services">Servicios</string>
     <string name="category_others">Otros</string>
