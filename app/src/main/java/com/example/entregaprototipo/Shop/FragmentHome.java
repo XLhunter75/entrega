@@ -5,6 +5,7 @@ import static com.example.entregaprototipo.Shop.ActivityMainShop.MDATABASE;
 import static com.example.entregaprototipo.Shop.ActivityMainShop.USER_UID;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -37,9 +38,6 @@ import java.util.Random;
 public class FragmentHome extends Fragment {
 
     public static ArrayList<ProductData> REGISTERED_PRODUCTS;
-    public static ArrayList<ProductData> FOUND_PRODUCTS;
-    public static ArrayList<UserData> FOUND_USERS;
-
     private ArrayList<ProductData> all_products;
     private ArrayList<ProductData> not_my_products;
     private ArrayList<ProductData> random_popular;
@@ -197,19 +195,10 @@ public class FragmentHome extends Fragment {
                     return;
                 }
                 else{
-                    FOUND_PRODUCTS = new ArrayList<>();
-                    FOUND_USERS = new ArrayList<>();
-                    for(ProductData product: all_products){
-                        if(product.getProduct_name().contains(word_search)){
-                            FOUND_PRODUCTS.add(product);
-                        }
-                    }
-                    for(UserData user: ALL_USERS){
-                        if(user.getName().contains(word_search)){
-                            FOUND_USERS.add(user);
-                        }
-                    }
-
+                    Intent i = new Intent(FragmentHome.this.getContext(), ActivityResultSearch.class);
+                    i.putExtra("wordSearch", word_search);
+                    startActivity(i);
+                    etWord.setText("");
                 }
 
             }

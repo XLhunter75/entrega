@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:drawableStart="@drawable/ic_exit_goback"
+            android:drawableStart="@drawable/ic_go_back"
             android:padding="15dp"
             android:text=""
             android:textAlignment="textStart"
@@ -38,6 +38,7 @@
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutFounds"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

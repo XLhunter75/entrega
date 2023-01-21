@@ -138,12 +138,11 @@ public class ActivityMainShop extends AppCompatActivity {
         });
     }
 
-    public void fill_list_user(){
-        UserData new_user = new UserData("NO_NAME","NO_MAIL",false,0.00,0,"NO_ADDRESS",0,false,"NO_URL");
-        MDATABASE.child("FireBaseUsers").addValueEventListener(new ValueEventListener() {
+    public void fill_list_user(){MDATABASE.child("FireBaseUsers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot user: snapshot.getChildren()){
+                    UserData new_user = new UserData("NO_NAME","NO_MAIL",false,0.00,0,"NO_ADDRESS",0,false,"NO_URL");
                     for(DataSnapshot data: user.getChildren()){
                         if(data.getKey().equals("address")){
                             new_user.setAddress(data.getValue().toString());
@@ -192,6 +191,7 @@ public class ActivityMainShop extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot user: snapshot.getChildren()){
+                    UserData new_user = new UserData("NO_NAME","NO_MAIL",false,0.00,0,"NO_ADDRESS",0,false,"NO_URL");
                     for(DataSnapshot data: user.getChildren()){
                         if(data.getKey().equals("address")){
                             new_user.setAddress(data.getValue().toString());

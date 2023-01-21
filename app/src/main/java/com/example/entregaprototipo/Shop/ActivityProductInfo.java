@@ -83,9 +83,10 @@ public class ActivityProductInfo extends AppCompatActivity {
                     }
                     else if (product_data.getKey().equals("Available")) {
                         if (product_data.getValue().toString().equals("true")) {
-                            btBuy.setActivated(true);
+                            btBuy.setEnabled(true);
                         } else {
-                            btBuy.setActivated(false);
+                            btBuy.setEnabled(false);
+                            btBuy.setText("Vendido");
                         }
                     }
                     else if (product_data.getKey().equals("SellerProfile")) {
