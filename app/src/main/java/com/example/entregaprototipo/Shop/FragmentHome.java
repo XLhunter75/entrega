@@ -2,20 +2,19 @@ package com.example.entregaprototipo.Shop;
 
 import static com.example.entregaprototipo.Shop.ActivityMainShop.ALL_USERS;
 import static com.example.entregaprototipo.Shop.ActivityMainShop.MDATABASE;
+import static com.example.entregaprototipo.Shop.ActivityMainShop.USER_UID;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,7 +22,7 @@ import android.widget.TextView;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
-import com.example.entregaprototipo.Adapters.AdpShop;
+import com.example.entregaprototipo.Adapters.AdpProducts;
 import com.example.entregaprototipo.ProductModel.ProductData;
 import com.example.entregaprototipo.R;
 import com.example.entregaprototipo.UserModel.UserData;
@@ -42,6 +41,7 @@ public class FragmentHome extends Fragment {
     public static ArrayList<UserData> FOUND_USERS;
 
     private ArrayList<ProductData> all_products;
+    private ArrayList<ProductData> not_my_products;
     private ArrayList<ProductData> random_popular;
 
     private Button btSearched;
@@ -59,11 +59,10 @@ public class FragmentHome extends Fragment {
 
         all_products = new ArrayList<>();
         random_popular = new ArrayList<>();
+        not_my_products = new ArrayList<>();
 
         imageSlider = v.findViewById(R.id.slider);
         List<SlideModel> slideModels = new ArrayList<>();
-
-
 
 
         //Preparar la pantalla de carga
@@ -93,6 +92,7 @@ public class FragmentHome extends Fragment {
                         //Agregar codigo para cantidad de producto disponible
                     }
                     else{
+                        String product_id = "";
                         String user_name = "";
                         String uid_user = "";
                         String product_name = "";
@@ -100,7 +100,9 @@ public class FragmentHome extends Fragment {
                         String product_category = "";
                         double product_price = 0.00;
                         ArrayList<String> url_main_image_data = new ArrayList<>();
+                        ArrayList<String> users_liked = new ArrayList<>();
                         boolean product_available = false;
+                        String seller_profile = "";
 
                         for(DataSnapshot data : product.getChildren()){
                             if (data.getKey().equals("Category")) {
@@ -114,9 +116,6 @@ public class FragmentHome extends Fragment {
                             }
                             else if (data.getKey().equals("Product")) {
                                 product_name = data.getValue().toString();
-                            }
-                            else if (data.getKey().equals("name")) {
-                                user_name = data.getValue().toString();
                             }
                             else if (data.getKey().equals("Available")) {
                                 if (data.getValue().toString().equals("true")) {
@@ -136,12 +135,25 @@ public class FragmentHome extends Fragment {
                                     data.getKey().equals("Image8") || data.getKey().equals("Image1")){
                                 url_main_image_data.add(data.getValue().toString());
                             }
-                            else{
-                                //En caso de haber errores un product, por ejemplo que falte un dato
-                                break;
+                            else if (data.getKey().equals("liked_users")){
+                                for(DataSnapshot user_liked: data.getChildren()){
+                                    String checked_is_liked = user_liked.getValue().toString();
+                                    if(checked_is_liked.equals("true")){
+                                        users_liked.add(user_liked.getKey());
+                                    }
+                                }
+                            }
+                            else if (data.getKey().equals("SellerProfile")) {
+                                seller_profile = data.getValue().toString();
                             }
                         }
-                        ProductData new_product = new ProductData(user_name, uid_user, product_name, product_description, product_category, product_price, url_main_image_data, product_available);
+
+                        product_id = product.getKey();
+                        ProductData new_product = new ProductData(product_id, user_name, uid_user, product_name, product_description, product_category, product_price, url_main_image_data, product_available, users_liked, seller_profile);
+
+                        if(!uid_user.equals(USER_UID)){
+                            not_my_products.add(new_product);
+                        }
                         all_products.add(new_product);
                     }
                 }
@@ -153,16 +165,15 @@ public class FragmentHome extends Fragment {
                 Random r2 = new Random();
                 ArrayList<Integer> used_product = new ArrayList<>();
                 for(int i = 0; i < 3; i++){
-                    int selected_product = r.nextInt(all_products.size());
+                    int selected_product = r.nextInt(not_my_products.size());
                     while (used_product.contains(selected_product)) {
-                        selected_product = r.nextInt(all_products.size());
+                        selected_product = r.nextInt(not_my_products.size());
                     }
                     used_product.add(selected_product);
-                    random_popular.add(all_products.get(selected_product));
+                    random_popular.add(not_my_products.get(selected_product));
 
                     //AÑADE IMAGENES AL SLIDER
-                    slideModels.add(new SlideModel(all_products.get(i)
-                            .getUrl_set_image_data().get(0), "Novedades: " + random_popular.get(i).getProduct_name(), ScaleTypes.CENTER_INSIDE));
+                    slideModels.add(new SlideModel(random_popular.get(i).getUrl_set_image_data().get(0), random_popular.get(i).getProduct_name(), ScaleTypes.CENTER_INSIDE));
                 }
 
                 createRecycleProductsA(v);
@@ -209,14 +220,14 @@ public class FragmentHome extends Fragment {
     }
 
     public void createRecycleProductsA(@NonNull View v){
-        AdpShop adpShop_adaptor = new AdpShop(v.getContext(), all_products,false,false);
+        AdpProducts adpProducts_adaptor = new AdpProducts(v.getContext(), not_my_products,false,false);
         RecyclerView recyclerViewMain = v.findViewById(R.id.mainRecycleViewProducts);
         recyclerViewMain.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
-        recyclerViewMain.setAdapter(adpShop_adaptor);
+        recyclerViewMain.setAdapter(adpProducts_adaptor);
 
-        AdpShop adpShop_adaptor_2 = new AdpShop(v.getContext(), random_popular,false,true);
+        AdpProducts adpProducts_adaptor_2 = new AdpProducts(v.getContext(), random_popular,false,true);
         RecyclerView recyclerViewPopular = v.findViewById(R.id.popularRecycleViewProducts);
         recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewPopular.setAdapter(adpShop_adaptor_2);
+        recyclerViewPopular.setAdapter(adpProducts_adaptor_2);
     }
 }

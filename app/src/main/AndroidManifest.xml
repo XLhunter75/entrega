@@ -13,6 +13,12 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".Shop.ActivityProductInfo"
+            android:exported="false" />
+        <activity
+            android:name=".Shop.ActivityUserInfo"
+            android:exported="false" />
+        <activity
             android:name=".Shop.ActivityResultSearch"
             android:exported="false" />
         <activity

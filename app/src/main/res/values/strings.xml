@@ -81,6 +81,8 @@
     <string name="results">Resultados</string>
     <string name="products">Productos</string>
     <string name="users">Usuarios</string>
+    <string name="information_product">Informacion</string>
+    <string name="buy">Comprar</string>
 
     <!-- String Fragment Category-->
     <string name="title_category">Productos por categoria</string>

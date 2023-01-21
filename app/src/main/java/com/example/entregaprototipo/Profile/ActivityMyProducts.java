@@ -12,7 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.entregaprototipo.Adapters.AdpShop;
+import com.example.entregaprototipo.Adapters.AdpProducts;
 import com.example.entregaprototipo.ProductModel.ProductData;
 import com.example.entregaprototipo.R;
 import com.google.android.material.tabs.TabLayout;
@@ -76,10 +76,10 @@ public class ActivityMyProducts extends AppCompatActivity {
     }
 
     public void createRecycleProducts(@NonNull View v, ArrayList<ProductData> list_product){
-        AdpShop adpShop_adaptor_2 = new AdpShop(v.getContext(), list_product,true,false);
+        AdpProducts adpProducts_adaptor_2 = new AdpProducts(v.getContext(), list_product,false,false);
         RecyclerView recyclerViewPopular = v.findViewById(R.id.recycleViewMyProducts);
         recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerViewPopular.setAdapter(adpShop_adaptor_2);
+        recyclerViewPopular.setAdapter(adpProducts_adaptor_2);
     }
 
     public void fillYourProducts(){

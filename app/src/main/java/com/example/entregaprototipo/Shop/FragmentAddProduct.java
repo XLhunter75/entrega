@@ -270,7 +270,9 @@ public class FragmentAddProduct extends Fragment  implements View.OnClickListene
                     MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("Price").setValue(price_product);
                     MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("User_Name").setValue(LOGGED_USER.getName());
                     MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("User_UID").setValue(USER_UID);
+                    MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("SellerProfile").setValue(LOGGED_USER.getProfileURL());
                     MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("Available").setValue(true);
+                    MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("liked_users").setValue("");
                     MDATABASE.child("Productos").child("countProduct").setValue(Integer.toString(product_count));
                     int number_image = 0;
                     if(used_uri != null){

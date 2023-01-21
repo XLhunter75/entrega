@@ -7,15 +7,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
 
-import com.example.entregaprototipo.Adapters.AdpShop;
+import com.example.entregaprototipo.Adapters.AdpProducts;
 import com.example.entregaprototipo.ProductModel.ProductData;
 import com.example.entregaprototipo.R;
 import com.google.android.material.tabs.TabLayout;
@@ -59,10 +57,10 @@ public class FragmentCategory extends Fragment {
     }
 
     public void createRecycleProductsA(@NonNull View v, ArrayList<ProductData> list_show){
-        AdpShop adpShop_adaptor = new AdpShop(v.getContext(), list_show,true,false);
+        AdpProducts adpProducts_adaptor = new AdpProducts(v.getContext(), list_show,true,false);
         RecyclerView recyclerViewMain = v.findViewById(R.id.recicleViewProducts2);
         recyclerViewMain.setLayoutManager(new GridLayoutManager(v.getContext(), 2));
-        recyclerViewMain.setAdapter(adpShop_adaptor);
+        recyclerViewMain.setAdapter(adpProducts_adaptor);
     }
 
     public void fillProduct(){

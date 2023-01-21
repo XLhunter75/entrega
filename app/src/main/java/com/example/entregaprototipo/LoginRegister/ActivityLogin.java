@@ -116,16 +116,11 @@ public class ActivityLogin extends AppCompatActivity {
         mDatabase.child("GoogleUsers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                try{
-                    for(DataSnapshot data: snapshot.getChildren()){
-                        String databaseName = data.child("name").getValue().toString();
-                        String databaseMailGoogle = data.child("emailGoogle").getValue().toString();
-                        list_users.add(databaseName);
-                        list_Mail.add(databaseMailGoogle);
-                    }
-                }
-                catch (NullPointerException e){
-                    Toast.makeText(ActivityLogin.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                for(DataSnapshot data: snapshot.getChildren()){
+                    String databaseName = data.child("name").getValue().toString();
+                    String databaseMailGoogle = data.child("emailGoogle").getValue().toString();
+                    list_users.add(databaseName);
+                    list_Mail.add(databaseMailGoogle);
                 }
             }
             @Override
@@ -283,11 +278,12 @@ public class ActivityLogin extends AppCompatActivity {
 
                 StorageReference ubicacionImagen = mStorage.child("GoogleUsers").child(uid).child("profile.png");
                 Uri imageUri = Uri.parse("android.resource://" + ActivityLogin.this.getPackageName() + "/" + R.drawable.ic_default_profile);
-                ubicacionImagen.putFile(imageUri).addOnSuccessListener(taskSnapshot ->
-                ubicacionImagen.getDownloadUrl().addOnCompleteListener(taskImage -> {
+                ubicacionImagen.putFile(imageUri).addOnSuccessListener(taskSnapshot -> ubicacionImagen.getDownloadUrl().addOnCompleteListener(taskImage -> {
                     Uri imageURL = taskImage.getResult();
                     mDatabase.child("GoogleUsers").child(uid).child("pic").setValue(imageURL.toString());
-
+                    googleAccount = true;
+                    i.putExtra("normalAccount", normalAccount);
+                    i.putExtra("googleAccount", googleAccount);
                     i.putExtra("UIDusuario", uid);
                     startActivity(i);
                     clean();
