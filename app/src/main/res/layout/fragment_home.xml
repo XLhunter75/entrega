@@ -29,8 +29,8 @@
                 app:iss_corner_radius="20"
                 app:iss_delay="0"
                 app:iss_period="3000"
-                app:iss_text_align=""
-                app:iss_title_background="@drawable/button_style_normal">
+                app:iss_text_align="center"
+                app:iss_title_background="@drawable/bottom_image_slider_format">
 
             </com.denzcoskun.imageslider.ImageSlider>
 
