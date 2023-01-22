@@ -2,7 +2,9 @@ package com.example.entregaprototipo.Shop;
 
 
 import static com.example.entregaprototipo.Shop.ActivityMainShop.LOGGED_USER;
+import static com.example.entregaprototipo.Shop.ActivityMainShop.MAUTH;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,10 +17,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.entregaprototipo.LoginRegister.ActivityLogin;
 import com.example.entregaprototipo.Profile.ActivityMyProducts;
 import com.example.entregaprototipo.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 
 public class FragmentProfile extends Fragment implements View.OnClickListener{
@@ -26,7 +33,7 @@ public class FragmentProfile extends Fragment implements View.OnClickListener{
     private TextView tvName;
     private ImageView ivProfile;
     private Button btBought, btSold, btWallet, btExit, btConfiguration, btYourProducts;
-
+    private GoogleSignInClient googleSignInClient;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,6 +64,12 @@ public class FragmentProfile extends Fragment implements View.OnClickListener{
         btWallet.setText("Tienes: "+ String.format( "%,.2f" ,LOGGED_USER.getCash()) + "€");
         tvName.setText(LOGGED_USER.getName());
 
+        //Necesario activarlo otra vez en caso de querer hacer un SignOut, para que cuando salga lo registre en googleSignInClient
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        googleSignInClient = GoogleSignIn.getClient(FragmentProfile.this.getContext(), gso);
+
         return v;
     }
 
@@ -76,6 +89,21 @@ public class FragmentProfile extends Fragment implements View.OnClickListener{
             case R.id.btConfiguration:
                 break;
             case R.id.btExit:
+                Intent a = new Intent(FragmentProfile.this.getContext(), ActivityLogin.class);
+
+                if (!LOGGED_USER.isGoogleAccount()) {
+                    MAUTH.signOut();
+                    Toast.makeText(FragmentProfile.this.getContext(), R.string.exit, Toast.LENGTH_SHORT).show();
+                    startActivity(a);
+                }
+
+                //Para Google se convierte el fragment en activity y finaliza el signout usando finish()
+                else if (LOGGED_USER.isGoogleAccount()) {
+                    googleSignInClient.signOut().addOnCompleteListener((Activity) FragmentProfile.this.getContext(), task -> {
+                        Toast.makeText(FragmentProfile.this.getContext(), R.string.exit, Toast.LENGTH_SHORT).show();
+                        startActivity(a);
+                    });
+                }
                 break;
         }
 

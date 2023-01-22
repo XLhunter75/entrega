@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class UserData implements Serializable{
 
+    private String uid;
     private String name;
     private String mail;
     private boolean isGoogleAccount;
@@ -14,7 +15,7 @@ public class UserData implements Serializable{
     private boolean isRememberMe;
     private String profileURL;
 
-    public UserData(String name, String mail, boolean isGoogleAccount, double cash, int phoneNumber, String address, int countProduct, boolean isRememberMe, String profileURL) {
+    public UserData(String uid, String name, String mail, boolean isGoogleAccount, double cash, int phoneNumber, String address, int countProduct, boolean isRememberMe, String profileURL) {
         this.name = name;
         this.mail = mail;
         this.isGoogleAccount = isGoogleAccount;
@@ -24,6 +25,15 @@ public class UserData implements Serializable{
         this.countProduct = countProduct;
         this.isRememberMe = isRememberMe;
         this.profileURL = profileURL;
+        this.uid = uid;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getName() {

@@ -90,7 +90,8 @@ public class ActivityMainShop extends AppCompatActivity {
     }
 
     public void fill_logged_user(String type_user){
-        LOGGED_USER = new UserData("NO_NAME","NO_MAIL",false,0.00,0,"NO_ADDRESS",0,false,"NO_URL");
+        LOGGED_USER = new UserData("NO_UID","NO_NAME","NO_MAIL",false,0.00,0,"NO_ADDRESS",0,false,"NO_URL");
+        LOGGED_USER.setUid(USER_UID);
         MDATABASE.child(type_user).child(USER_UID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -138,11 +139,13 @@ public class ActivityMainShop extends AppCompatActivity {
         });
     }
 
-    public void fill_list_user(){MDATABASE.child("FireBaseUsers").addValueEventListener(new ValueEventListener() {
+    public void fill_list_user(){
+        MDATABASE.child("FireBaseUsers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot user: snapshot.getChildren()){
-                    UserData new_user = new UserData("NO_NAME","NO_MAIL",false,0.00,0,"NO_ADDRESS",0,false,"NO_URL");
+                    UserData new_user = new UserData("NO_UID","NO_NAME","NO_MAIL",false,0.00,0,"NO_ADDRESS",0,false,"NO_URL");
+                    new_user.setUid(user.getKey());
                     for(DataSnapshot data: user.getChildren()){
                         if(data.getKey().equals("address")){
                             new_user.setAddress(data.getValue().toString());
@@ -191,7 +194,8 @@ public class ActivityMainShop extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot user: snapshot.getChildren()){
-                    UserData new_user = new UserData("NO_NAME","NO_MAIL",false,0.00,0,"NO_ADDRESS",0,false,"NO_URL");
+                    UserData new_user = new UserData("NO_UID","NO_NAME","NO_MAIL",false,0.00,0,"NO_ADDRESS",0,false,"NO_URL");
+                    new_user.setUid(user.getKey());
                     for(DataSnapshot data: user.getChildren()){
                         if(data.getKey().equals("address")){
                             new_user.setAddress(data.getValue().toString());

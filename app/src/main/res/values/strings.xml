@@ -83,6 +83,7 @@
     <string name="users">Usuarios</string>
     <string name="information_product">Informacion</string>
     <string name="buy">Comprar</string>
+    <string name="exit">Saliendo de la cuenta...</string>
 
     <!-- String Fragment Category-->
     <string name="title_category">Productos por categoria</string>

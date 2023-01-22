@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.entregaprototipo.ProductModel.ProductData;
 import com.example.entregaprototipo.R;
 import com.example.entregaprototipo.Shop.ActivityProductInfo;
+import com.example.entregaprototipo.Shop.ActivityUserInfo;
 import com.example.entregaprototipo.UserModel.UserData;
 
 import java.util.ArrayList;
@@ -43,6 +44,14 @@ public class AdpUsers extends RecyclerView.Adapter<AdpUsers.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bindData(list_users.get(position));
         UserData user_selected = list_users.get(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), ActivityUserInfo.class);
+                i.putExtra("seller_uid", user_selected.getUid());
+                v.getContext().startActivity(i);
+            }
+        });
     }
 
     @Override

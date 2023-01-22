@@ -79,112 +79,112 @@ public class FragmentHome extends Fragment {
         loading_dialog = builder.create();
 
         //Recoger todos los productos
-        MDATABASE.child("Productos").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //Mostrar el layout
-                loading_dialog.show();
+            MDATABASE.child("Productos").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    //Mostrar el layout
+                    loading_dialog.show();
 
-                for(DataSnapshot product : snapshot.getChildren()){
-                    if(product.getKey().equals("countProduct")){
-                        //Agregar codigo para cantidad de producto disponible
-                    }
-                    else{
-                        String product_id = "";
-                        String user_name = "";
-                        String uid_user = "";
-                        String product_name = "";
-                        String product_description = "";
-                        String product_category = "";
-                        double product_price = 0.00;
-                        ArrayList<String> url_main_image_data = new ArrayList<>();
-                        ArrayList<String> users_liked = new ArrayList<>();
-                        boolean product_available = false;
-                        String seller_profile = "";
+                    for(DataSnapshot product : snapshot.getChildren()){
+                        if(product.getKey().equals("countProduct")){
+                            //Agregar codigo para cantidad de producto disponible
+                        }
+                        else{
+                            String product_id = "";
+                            String user_name = "";
+                            String uid_user = "";
+                            String product_name = "";
+                            String product_description = "";
+                            String product_category = "";
+                            double product_price = 0.00;
+                            ArrayList<String> url_main_image_data = new ArrayList<>();
+                            ArrayList<String> users_liked = new ArrayList<>();
+                            boolean product_available = false;
+                            String seller_profile = "";
 
-                        for(DataSnapshot data : product.getChildren()){
-                            if (data.getKey().equals("Category")) {
-                                product_category = data.getValue().toString();
-                            }
-                            else if (data.getKey().equals("Description")) {
-                                product_description = data.getValue().toString();
-                            }
-                            else if (data.getKey().equals("Price")) {
-                                product_price = Double.parseDouble(data.getValue().toString());
-                            }
-                            else if (data.getKey().equals("Product")) {
-                                product_name = data.getValue().toString();
-                            }
-                            else if (data.getKey().equals("Available")) {
-                                if (data.getValue().toString().equals("true")) {
-                                    product_available = true;
-                                } else {
-                                    product_available = false;
+                            for(DataSnapshot data : product.getChildren()){
+                                if (data.getKey().equals("Category")) {
+                                    product_category = data.getValue().toString();
                                 }
-                            }
-                            else if (data.getKey().equals("User_Name")) {
-                                user_name = data.getValue().toString();
-                            }
-                            else if (data.getKey().equals("User_UID")) {
-                                uid_user = data.getValue().toString();
-                            }
-                            else if (data.getKey().equals("Image2") || data.getKey().equals("Image3") || data.getKey().equals("Image4") ||
-                                    data.getKey().equals("Image5") || data.getKey().equals("Image6") || data.getKey().equals("Image7") ||
-                                    data.getKey().equals("Image8") || data.getKey().equals("Image1")){
-                                url_main_image_data.add(data.getValue().toString());
-                            }
-                            else if (data.getKey().equals("liked_users")){
-                                for(DataSnapshot user_liked: data.getChildren()){
-                                    String checked_is_liked = user_liked.getValue().toString();
-                                    if(checked_is_liked.equals("true")){
-                                        users_liked.add(user_liked.getKey());
+                                else if (data.getKey().equals("Description")) {
+                                    product_description = data.getValue().toString();
+                                }
+                                else if (data.getKey().equals("Price")) {
+                                    product_price = Double.parseDouble(data.getValue().toString());
+                                }
+                                else if (data.getKey().equals("Product")) {
+                                    product_name = data.getValue().toString();
+                                }
+                                else if (data.getKey().equals("Available")) {
+                                    if (data.getValue().toString().equals("true")) {
+                                        product_available = true;
+                                    } else {
+                                        product_available = false;
                                     }
                                 }
+                                else if (data.getKey().equals("User_Name")) {
+                                    user_name = data.getValue().toString();
+                                }
+                                else if (data.getKey().equals("User_UID")) {
+                                    uid_user = data.getValue().toString();
+                                }
+                                else if (data.getKey().equals("Image2") || data.getKey().equals("Image3") || data.getKey().equals("Image4") ||
+                                        data.getKey().equals("Image5") || data.getKey().equals("Image6") || data.getKey().equals("Image7") ||
+                                        data.getKey().equals("Image8") || data.getKey().equals("Image1")){
+                                    url_main_image_data.add(data.getValue().toString());
+                                }
+                                else if (data.getKey().equals("liked_users")){
+                                    for(DataSnapshot user_liked: data.getChildren()){
+                                        String checked_is_liked = user_liked.getValue().toString();
+                                        if(checked_is_liked.equals("true")){
+                                            users_liked.add(user_liked.getKey());
+                                        }
+                                    }
+                                }
+                                else if (data.getKey().equals("SellerProfile")) {
+                                    seller_profile = data.getValue().toString();
+                                }
                             }
-                            else if (data.getKey().equals("SellerProfile")) {
-                                seller_profile = data.getValue().toString();
+
+                            product_id = product.getKey();
+                            ProductData new_product = new ProductData(product_id, user_name, uid_user, product_name, product_description, product_category, product_price, url_main_image_data, product_available, users_liked, seller_profile);
+
+                            if(!uid_user.equals(USER_UID)){
+                                not_my_products.add(new_product);
                             }
+                            all_products.add(new_product);
                         }
-
-                        product_id = product.getKey();
-                        ProductData new_product = new ProductData(product_id, user_name, uid_user, product_name, product_description, product_category, product_price, url_main_image_data, product_available, users_liked, seller_profile);
-
-                        if(!uid_user.equals(USER_UID)){
-                            not_my_products.add(new_product);
-                        }
-                        all_products.add(new_product);
                     }
+
+                    REGISTERED_PRODUCTS = all_products;
+
+                    //Elegir de manera aleatoria productos destacados
+                    Random r = new Random();
+                    Random r2 = new Random();
+                    ArrayList<Integer> used_product = new ArrayList<>();
+                    for(int i = 0; i < 3; i++){
+                        int selected_product = r.nextInt(not_my_products.size());
+                        while (used_product.contains(selected_product)) {
+                            selected_product = r.nextInt(not_my_products.size());
+                        }
+                        used_product.add(selected_product);
+                        random_popular.add(not_my_products.get(selected_product));
+
+                        //AÑADE IMAGENES AL SLIDER
+                        slideModels.add(new SlideModel(random_popular.get(i).getUrl_set_image_data().get(0), random_popular.get(i).getProduct_name(), ScaleTypes.CENTER_INSIDE));
+                    }
+
+                    createRecycleProductsA(v);
+                    loading_dialog.dismiss();
+                    //LISTA DE IMAGENES DEL SLIDER
+                    imageSlider.setImageList(slideModels);
                 }
 
-                REGISTERED_PRODUCTS = all_products;
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-                //Elegir de manera aleatoria productos destacados
-                Random r = new Random();
-                Random r2 = new Random();
-                ArrayList<Integer> used_product = new ArrayList<>();
-                for(int i = 0; i < 3; i++){
-                    int selected_product = r.nextInt(not_my_products.size());
-                    while (used_product.contains(selected_product)) {
-                        selected_product = r.nextInt(not_my_products.size());
-                    }
-                    used_product.add(selected_product);
-                    random_popular.add(not_my_products.get(selected_product));
-
-                    //AÑADE IMAGENES AL SLIDER
-                    slideModels.add(new SlideModel(random_popular.get(i).getUrl_set_image_data().get(0), random_popular.get(i).getProduct_name(), ScaleTypes.CENTER_INSIDE));
                 }
-
-                createRecycleProductsA(v);
-                loading_dialog.dismiss();
-                //LISTA DE IMAGENES DEL SLIDER
-                imageSlider.setImageList(slideModels);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+            });
 
         btSearched.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,6 +7,7 @@ import static com.example.entregaprototipo.Shop.ActivityMainShop.USER_UID;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -138,6 +139,15 @@ public class ActivityProductInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        sellerProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ActivityProductInfo.this, ActivityUserInfo.class);
+                i.putExtra("seller_uid", seller_uid);
+                v.getContext().startActivity(i);
             }
         });
 
