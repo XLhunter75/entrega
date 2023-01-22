@@ -118,7 +118,7 @@
     <string name="your_product_sold">Vendidos</string>
     <string name="your_product_no_sold">Sin vender</string>
     <string name="change_name">Cambiar nombre</string>
-    <string name="change_photo">Cambier foto</string>
+    <string name="change_photo">Cambiar foto</string>
     <string name="success_change_name">Imagen subido exitosamente</string>
     <string name="too_long_name">No puede haber mas de 25 caracteres el nombre</string>
 

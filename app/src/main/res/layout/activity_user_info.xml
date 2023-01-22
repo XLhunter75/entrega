@@ -24,14 +24,16 @@
             android:textAlignment="textStart"
             android:layout_weight=".2"
             tools:ignore="SpeakableTextPresentCheck" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:layout_weight=".9"
+            android:text="@string/information_product"
             android:textSize="25dp"
             android:textStyle="bold"
-            android:layout_weight=".9"
-            android:text="@string/information_product"/>
+            android:visibility="invisible" />
 
 
     </LinearLayout>
@@ -43,39 +45,46 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/seller_profile"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_weight=".3"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <TextView
                     android:id="@+id/seller_name"
-                    android:layout_weight=".6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
+                    android:layout_weight=".6"
+                    android:gravity="left|center_vertical"
                     android:paddingLeft="15dp"
                     android:text="Nombre "
                     android:textAlignment="gravity"
                     android:textColor="@color/black"
                     android:textSize="20dp"></TextView>
+
                 <Button
                     android:id="@+id/seller_chat_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight=".1"
-                    android:textSize="15dp"
                     android:background="@drawable/button_style_normal_white_black"
-                    android:text="Chat" />
+                    android:gravity="center"
+                    android:text="Chat"
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <TextView
