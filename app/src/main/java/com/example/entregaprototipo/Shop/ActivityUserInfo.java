@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ import java.util.Random;
 public class ActivityUserInfo extends AppCompatActivity {
 
     private Button btBack, btChat;
+
     private ImageView sellerProfile;
     private ArrayList<ProductData> sellers_product;
     private TextView tvSellersName;

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,7 +32,9 @@ import java.util.List;
 
 public class ActivityProductInfo extends AppCompatActivity {
 
-    private Button btBack, btChat, btBuy;
+    private Button btChat, btBuy;
+
+    private ImageButton btBack;
     private TextView etProduct, etPrice, etSeller, etDescription;
     private ImageView sellerProfile;
     private CheckBox cbLike;
