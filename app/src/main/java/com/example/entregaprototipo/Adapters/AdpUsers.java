@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.entregaprototipo.ProductModel.ProductData;
 import com.example.entregaprototipo.R;
 import com.example.entregaprototipo.Shop.ActivityProductInfo;
@@ -74,7 +75,7 @@ public class AdpUsers extends RecyclerView.Adapter<AdpUsers.ViewHolder> {
         public void bindData(@NonNull UserData user){
             tvUserName.setText(user.getName());
             Uri product_image = Uri.parse(user.getProfileURL());
-            Glide.with(itemView).load(String.valueOf(product_image)).into(imageProfile);
+            Glide.with(itemView).load(String.valueOf(product_image)).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(imageProfile);
         }
     }
 }

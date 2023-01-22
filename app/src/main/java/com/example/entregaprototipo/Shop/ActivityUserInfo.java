@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.entregaprototipo.Adapters.AdpProducts;
@@ -112,7 +113,7 @@ public class ActivityUserInfo extends AppCompatActivity {
                     else if(data.getKey().equals("pic")){
                         seller_data.setProfileURL(data.getValue().toString());
                         Uri product_image = Uri.parse(data.getValue().toString());
-                        Glide.with(ActivityUserInfo.this).load(String.valueOf(product_image)).into(sellerProfile);
+                        Glide.with(ActivityUserInfo.this).load(String.valueOf(product_image)).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(sellerProfile);
                     }
                 }
             }
@@ -161,7 +162,7 @@ public class ActivityUserInfo extends AppCompatActivity {
                     else if(data.getKey().equals("pic")){
                         seller_data.setProfileURL(data.getValue().toString());
                         Uri product_image = Uri.parse(data.getValue().toString());
-                        Glide.with(ActivityUserInfo.this).load(String.valueOf(product_image)).into(sellerProfile);
+                        Glide.with(ActivityUserInfo.this).load(String.valueOf(product_image)).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(sellerProfile);
                     }
                 }
             }

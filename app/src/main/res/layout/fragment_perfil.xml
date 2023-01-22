@@ -30,14 +30,50 @@
             android:id="@+id/profile_name_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="152dp"
+            android:textAlignment="viewEnd"
             android:text="TextView"
             android:textSize="25dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp"
+        android:textStyle="bold"
+        android:background="@color/white_gray"
+        android:textSize="20dp"
+        android:text="@string/configuration" />
+
+    <Button
+        android:id="@+id/btChangeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawableEnd="@drawable/ic_foward"
+        android:drawablePadding="10dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="20dp"
+        android:text="@string/change_name"
+        android:textAlignment="textStart" />
+    <Button
+        android:id="@+id/btChangePhoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawableEnd="@drawable/ic_foward"
+        android:drawablePadding="10dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="20dp"
+        android:text="@string/change_photo"
+        android:textAlignment="textStart" />
 
     <TextView
         android:id="@+id/textView18"
@@ -114,7 +150,6 @@
         android:text="@string/your_product"
         android:textAlignment="textStart" />
 
-
     <TextView
         android:id="@+id/textView19"
         android:layout_width="match_parent"
@@ -126,20 +161,6 @@
         android:background="@color/white_gray"
         android:textSize="20dp"
         android:text="@string/configuration" />
-
-    <Button
-        android:id="@+id/btConfiguration"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:drawableStart="@drawable/ic_configuration"
-        android:drawableEnd="@drawable/ic_foward"
-        android:drawablePadding="10dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="20dp"
-        android:text="@string/configuration_account"
-        android:textAlignment="textStart" />
-
     <Button
         android:id="@+id/btExit"
         android:layout_width="match_parent"

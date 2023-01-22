@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
@@ -92,7 +93,7 @@ public class ActivityProductInfo extends AppCompatActivity {
                     }
                     else if (product_data.getKey().equals("SellerProfile")) {
                         Uri product_image = Uri.parse(product_data.getValue().toString());
-                        Glide.with(ActivityProductInfo.this).load(String.valueOf(product_image)).into(sellerProfile);
+                        Glide.with(ActivityProductInfo.this).load(String.valueOf(product_image)).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(sellerProfile);
                     }
                     else if (product_data.getKey().equals("User_UID")) {
                         seller_uid = product_data.getValue().toString();
