@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Shop.ActivityProductInfo">
@@ -10,37 +10,43 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="1"
         android:background="@color/white"
-        android:orientation="horizontal">
-        <Button
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <ImageButton
             android:id="@+id/btBack"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:drawableStart="@drawable/ic_go_back"
-            android:padding="15dp"
-            android:text=""
-            android:textAlignment="textStart"
+            android:layout_height="match_parent"
             android:layout_weight=".2"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_go_back" />
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight=".6"
+            android:gravity="center"
+            android:text="@string/information_product"
             android:textSize="25dp"
-            android:textStyle="bold"
-            android:layout_weight=".9"
-            android:text="@string/information_product"/>
+            android:textStyle="bold" />
+
         <CheckBox
             android:id="@+id/likeBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".01"
-            android:button="@drawable/like_checkbox"
-            android:gravity="center" />
+            android:layout_height="match_parent"
+            android:layout_weight=".2"
+            android:button="@null"
+            android:drawableLeft="@drawable/like_checkbox"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingLeft="10dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp" />
 
     </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -62,33 +68,33 @@
                 android:id="@+id/product_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="12dp"
                 android:gravity="left"
-                android:layout_marginLeft="15dp"
                 android:text="Precio"
                 android:textAlignment="gravity"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="30dp"></TextView>
+                android:textSize="30dp"
+                android:textStyle="bold"></TextView>
 
             <TextView
                 android:id="@+id/product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="12dp"
                 android:gravity="left"
-                android:layout_marginLeft="15dp"
                 android:text="Nombre producto"
                 android:textAlignment="gravity"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="25dp"></TextView>
+                android:textSize="25dp"
+                android:textStyle="bold"></TextView>
 
             <View
-                android:layout_marginVertical="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
                 android:background="@color/light_gray">
 
             </View>
@@ -98,6 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
@@ -105,14 +112,17 @@
                     android:id="@+id/seller_profile"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
+                    android:layout_gravity="center"
                     android:layout_weight=".3"
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight=".6">
+                    android:layout_gravity="center"
+                    android:layout_weight=".6"
+                    android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -122,6 +132,7 @@
                         android:textAlignment="gravity"
                         android:textColor="@color/black"
                         android:textSize="15dp"></TextView>
+
                     <TextView
                         android:id="@+id/seller_name"
                         android:layout_width="wrap_content"
@@ -139,31 +150,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight=".1"
-                    android:textSize="15dp"
                     android:background="@drawable/button_style_normal_white_black"
-                    android:text="Chat" />
+                    android:gravity="center"
+                    android:text="Chat"
+                    android:textSize="15dp" />
 
             </LinearLayout>
 
             <TextView
                 android:id="@+id/title_description"
-                android:layout_margin="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="15dp"
                 android:gravity="left"
                 android:text="Descripcion "
                 android:textAlignment="gravity"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="20dp"></TextView>
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
 
             <TextView
                 android:id="@+id/product_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
-                android:gravity="left"
                 android:ellipsize="end"
+                android:gravity="left"
                 android:text="descripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripciondescripcion "
                 android:textAlignment="gravity"
                 android:textColor="@color/black"
@@ -174,10 +186,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:textSize="15dp"
-                android:textColor="@color/white"
                 android:background="@drawable/button_stats"
-                android:text="@string/buy" />
+                android:text="@string/buy"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
 
         </LinearLayout>
 
