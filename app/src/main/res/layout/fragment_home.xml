@@ -39,10 +39,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
-                android:paddingStart="5dp"
                 android:fontFamily="@font/montserrat_bold"
+                android:paddingStart="5dp"
                 android:text="@string/popular_products"
-                android:textColor="@color/black"
+                android:textColor="@color/notSoBlack"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -57,11 +57,12 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
                 android:layout_marginVertical="10dp"
                 android:background="@drawable/edittext_style"
                 android:backgroundTint="@color/darker_gray"
                 android:backgroundTintMode="screen"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="10dp"
                 android:weightSum="3">
@@ -70,15 +71,19 @@
                     android:id="@+id/etSearch"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginRight="5dp"
                     android:layout_weight="2"
-                    android:fontFamily="@font/montserrat_bold"
                     android:background="@android:color/transparent"
                     android:drawablePadding="10dp"
                     android:ems="10"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:gravity="center_vertical"
                     android:hint="@string/search"
                     android:inputType="textPersonName"
-                    android:padding="5dp"
+                    android:paddingLeft="10dp"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/lightBlack"
                     android:textSize="16sp" />
 
                 <Button
@@ -98,10 +103,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
-                android:paddingLeft="5dp"
                 android:fontFamily="@font/montserrat_bold"
+                android:paddingLeft="5dp"
                 android:text="@string/title_home"
-                android:textColor="@color/black"
+                android:textColor="@color/notSoBlack"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

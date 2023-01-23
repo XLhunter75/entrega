@@ -36,6 +36,7 @@
             android:fontFamily="@font/montserrat_bold"
             android:text="TextView"
             android:textAlignment="viewEnd"
+            android:textColor="@color/lightBlack"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/profile_image_user"
@@ -46,14 +47,15 @@
         android:id="@+id/textView29"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingLeft="20dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:paddingBottom="10dp"
-        android:textStyle="bold"
         android:background="@color/white_gray"
+        android:fontFamily="@font/montserrat_bold"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp"
+        android:text="@string/configuration"
+        android:textColor="@color/lightBlack"
         android:textSize="20dp"
-        android:text="@string/configuration" />
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btChangeName"
@@ -173,19 +175,21 @@
         android:background="@color/white_gray"
         android:textSize="20dp"
         android:text="@string/configuration" />
+
     <Button
         android:id="@+id/btExit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:fontFamily="@font/montserrat_bold"
         android:drawableStart="@drawable/ic_exit_account"
         android:drawableEnd="@drawable/ic_foward"
         android:drawablePadding="10dp"
+        android:fontFamily="@font/montserrat_bold"
         android:paddingLeft="30dp"
         android:paddingRight="20dp"
         android:text="@string/exit_account"
-        android:textAlignment="textStart" />
+        android:textAlignment="textStart"
+        android:textColor="@color/notSoBlack" />
 
 
 
