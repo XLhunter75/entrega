@@ -58,6 +58,7 @@
     <!-- String nav Tienda menu -->
     <string name="home">Principal</string>
     <string name="category">Categoria</string>
+    <string name="quantity">Cantidad</string>
     <string name="cart">Carrito</string>
     <string name="perfil">Perfil</string>
     <string name="add_product">Publicar</string>

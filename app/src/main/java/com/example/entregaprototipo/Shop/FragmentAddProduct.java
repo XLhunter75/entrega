@@ -31,8 +31,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.entregaprototipo.R;
@@ -47,23 +49,26 @@ import java.util.ArrayList;
 public class FragmentAddProduct extends Fragment  implements View.OnClickListener {
 
     private EditText etName, etDescription, etPrice;
+    private ImageButton minusBtn, plusBtn;
+    private TextView tvItemCount;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6,imageView7,imageView8;
     private int selected_image = 0;
     private Button btSave;
     private Spinner spinnerCategory;
-
     private ActivityResultLauncher<Intent> activityResultLauncher;
     private Uri imagenUri;
     private boolean[] position_used = new boolean[9];
     private ArrayList<Uri> used_uri = new ArrayList<>();
 
     private boolean product_save;
-    private int product_count;
+    private int product_count, itemCount;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_product, container, false);
+
+        itemCount = 0;
 
         etName = v.findViewById(R.id.etNombreAgregar);
         etDescription = v.findViewById(R.id.etDescripcionAgregar);
@@ -77,6 +82,32 @@ public class FragmentAddProduct extends Fragment  implements View.OnClickListene
         imageView6 = v.findViewById(R.id.imageAgregar6);
         imageView7 = v.findViewById(R.id.imageAgregar7);
         imageView8 = v.findViewById(R.id.imageAgregar8);
+        tvItemCount = v.findViewById(R.id.tvItemCount);
+        minusBtn = v.findViewById(R.id.decrementBtn);
+        plusBtn = v.findViewById(R.id.incrementBtn);
+
+        plusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                itemCount++;
+                tvItemCount.setText("" + itemCount);
+            }
+        });
+
+        minusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (itemCount <= 0) {
+                    itemCount = 0;
+                }
+                else {
+                    itemCount--;
+                }
+                tvItemCount.setText("" + itemCount);
+            }
+        });
+
         imageView1.setOnClickListener(this);
         imageView2.setOnClickListener(this);
         imageView3.setOnClickListener(this);
@@ -85,6 +116,7 @@ public class FragmentAddProduct extends Fragment  implements View.OnClickListene
         imageView6.setOnClickListener(this);
         imageView7.setOnClickListener(this);
         imageView8.setOnClickListener(this);
+
 
         btSave = v.findViewById(R.id.btGuardarDB);
         product_save = false;
