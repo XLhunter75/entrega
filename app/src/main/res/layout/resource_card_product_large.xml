@@ -32,8 +32,6 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginHorizontal="5dp"
-                        android:layout_marginVertical="5dp"
                         android:background="@drawable/gray_gradient"
                         android:backgroundTint="@color/darker_gray"
                         android:backgroundTintMode="multiply">

@@ -35,6 +35,8 @@
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:gravity="center"
             android:orientation="vertical"
             android:paddingHorizontal="10dp">
@@ -42,8 +44,8 @@
             <TextView
                 android:id="@+id/textView24"
                 android:layout_width="match_parent"
-                android:fontFamily="@font/montserrat"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:paddingVertical="10dp"
                 android:text="@string/add_image"
                 android:textSize="20sp" />
@@ -60,7 +62,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight=".2"
-                    android:src="@drawable/ic_add_photo"/>
+                    android:src="@drawable/ic_add_photo" />
 
                 <ImageView
                     android:id="@+id/imageAgregar2"
@@ -157,7 +159,7 @@
                     <TextView
                         android:id="@+id/tvItemCount"
                         android:layout_width="30dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="55dp"
                         android:layout_marginHorizontal="10dp"
                         android:fontFamily="@font/montserrat_bold"
                         android:gravity="center"
@@ -179,32 +181,45 @@
             <EditText
                 android:id="@+id/etNombreAgregar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
+                android:layout_marginVertical="5dp"
+                android:background="@drawable/custom_edittext"
+                android:elevation="5dp"
                 android:ems="10"
-                android:hint="@string/product_name"
                 android:fontFamily="@font/montserrat"
+                android:hint="@string/product_name"
                 android:inputType="textPersonName"
-                android:paddingVertical="20dp" />
+                android:paddingStart="12dp"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/etDescripcionAgregar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
+                android:layout_height="55dp"
+                android:layout_marginVertical="5dp"
+                android:background="@drawable/custom_edittext"
+                android:elevation="5dp"
                 android:ems="10"
+                android:fontFamily="@font/montserrat"
                 android:hint="@string/product_description"
                 android:inputType="textPersonName"
-                android:paddingVertical="20dp" />
+                android:paddingStart="12dp"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/etPrecioAgregar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
+                android:layout_height="55dp"
+                android:layout_marginVertical="5dp"
+                android:background="@drawable/custom_edittext"
+                android:elevation="5dp"
                 android:ems="10"
-                android:hint="@string/product_price"
+                android:fontFamily="@font/montserrat"
                 android:inputType="numberDecimal"
-                android:paddingVertical="20dp" />
+                android:paddingStart="12dp"
+                android:textSize="16sp"
+                app:boxStrokeWidth="2dp"
+                android:hint="@string/product_price"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -227,9 +242,9 @@
                     android:id="@+id/spinnerCategoria"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/montserrat"
                     android:layout_weight="1"
-                    android:contentDescription="@string/app_name" />
+                    android:contentDescription="@string/app_name"
+                    android:fontFamily="@font/montserrat" />
 
             </LinearLayout>
 

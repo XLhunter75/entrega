@@ -2,118 +2,123 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".Shop.FragmentHome"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:isScrollContainer="true"
-        app:layout_constraintTop_toTopOf="parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="true"
+    android:fillViewport="true"
+    android:isScrollContainer="true"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:context=".Shop.FragmentHome">
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:paddingTop="10dp">
+
+        <com.denzcoskun.imageslider.ImageSlider
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="10dp"
+            app:iss_auto_cycle="true"
+            app:iss_corner_radius="20"
+            app:iss_delay="0"
+            app:iss_period="3000"
+            app:iss_text_align="center"
+            app:iss_title_background="@drawable/bottom_image_slider_format">
+
+        </com.denzcoskun.imageslider.ImageSlider>
+
+        <TextView
+            android:id="@+id/textView21"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:orientation="vertical"
-            android:paddingTop="10dp">
+            android:layout_marginVertical="5dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:paddingStart="5dp"
+            android:text="@string/popular_products"
+            android:textColor="@color/notSoBlack"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-            <com.denzcoskun.imageslider.ImageSlider
-                android:id="@+id/slider"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_marginTop="10dp"
-                app:iss_auto_cycle="true"
-                app:iss_corner_radius="20"
-                app:iss_delay="0"
-                app:iss_period="3000"
-                app:iss_text_align="center"
-                app:iss_title_background="@drawable/bottom_image_slider_format">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/popularRecycleViewProducts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            app:layout_constraintHeight="match_constraint" />
 
-            </com.denzcoskun.imageslider.ImageSlider>
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/custom_edittext"
+            android:backgroundTint="@color/darker_gray"
+            android:backgroundTintMode="screen"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:elevation="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:weightSum="3">
 
-            <TextView
-                android:id="@+id/textView21"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:paddingStart="5dp"
-                android:text="@string/popular_products"
-                android:textColor="@color/notSoBlack"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/popularRecycleViewProducts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                app:layout_constraintHeight="match_constraint" />
-
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginVertical="10dp"
-                android:background="@drawable/edittext_style"
-                android:backgroundTint="@color/darker_gray"
-                android:backgroundTintMode="screen"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:weightSum="3">
-
-                <EditText
-                    android:id="@+id/etSearch"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="2"
-                    android:background="@android:color/transparent"
-                    android:drawablePadding="10dp"
-                    android:ems="10"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:gravity="center_vertical"
-                    android:hint="@string/search"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="10dp"
-                    android:textAlignment="gravity"
-                    android:textColor="@color/lightBlack"
-                    android:textSize="16sp" />
-
-                <Button
-                    android:id="@+id/btSearch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/search"
-                    android:drawableLeft="@drawable/ic_search"
-                    android:minHeight="48dp"
-                    android:paddingLeft="17dp" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView22"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:paddingLeft="5dp"
-                android:text="@string/title_home"
-                android:textColor="@color/notSoBlack"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mainRecycleViewProducts"
+            <EditText
+                android:id="@+id/etSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginVertical="5dp" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2"
+                android:background="@android:color/transparent"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center_vertical"
+                android:hint="@string/search"
+                android:inputType="textPersonName"
+                android:paddingLeft="10dp"
+                android:textAlignment="gravity"
+                android:textColor="@color/lightBlack"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/search"
+                android:drawableLeft="@drawable/ic_search"
+                android:minHeight="48dp"
+                android:paddingLeft="17dp" />
         </LinearLayout>
-    </ScrollView>
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:paddingLeft="5dp"
+            android:text="@string/title_home"
+            android:textColor="@color/notSoBlack"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mainRecycleViewProducts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="5dp" />
+    </LinearLayout>
+</ScrollView>

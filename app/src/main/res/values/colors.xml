@@ -15,5 +15,6 @@
     <color name="blue_light">#5DA6FF</color>
     <color name="blue">#005EFF</color>
     <color name="red">#AF0000</color>
+    <color name="GreyEditText">#E8EBEC</color>
 
 </resources>
