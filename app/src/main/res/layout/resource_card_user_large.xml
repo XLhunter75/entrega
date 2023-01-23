@@ -43,6 +43,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:gravity="left"
+                        android:fontFamily="@font/montserrat_bold"
                         android:maxLines="1"
                         android:paddingLeft="15dp"
                         android:text="Nombre usuairo"

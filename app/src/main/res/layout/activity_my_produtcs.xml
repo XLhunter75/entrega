@@ -26,6 +26,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
             android:layout_marginTop="5dp"
             android:textSize="25dp"
             android:textStyle="bold"
@@ -39,6 +40,7 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayoutMyProducts"
         android:layout_width="match_parent"
+        android:fontFamily="@font/montserrat"
         android:layout_height="wrap_content">
 
         <com.google.android.material.tabs.TabItem

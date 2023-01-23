@@ -29,9 +29,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/results"
             android:textSize="25dp"
-            android:textStyle="bold"
-            android:text="@string/results">
+            android:textStyle="bold">
 
         </TextView>
 
