@@ -173,6 +173,10 @@ public class ActivityProductInfo extends AppCompatActivity {
                     else if (product_data.getKey().equals("Ammount")) {
                         String ammount = product_data.getValue().toString();
                         ammount_aviable = Integer.parseInt(ammount);
+                        if(ammount_aviable == 0){
+                            btBuy.setEnabled(false);
+                            btBuy.setText("Sin stock");
+                        }
                     }
                 }
                 product = new ProductData(product_id, user_name, uid_user, product_name,
@@ -206,10 +210,6 @@ public class ActivityProductInfo extends AppCompatActivity {
             }
         });
 
-        if(product.getAmmount_aviable() == 0){
-            btBuy.setEnabled(false);
-            btBuy.setText("Sin stock");
-        }
 
         btBuy.setOnClickListener(new View.OnClickListener() {
             @Override
