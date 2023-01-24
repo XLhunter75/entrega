@@ -8,6 +8,10 @@ import static com.example.entregaprototipo.Shop.ActivityMainShop.MDATABASE;
 import static com.example.entregaprototipo.Shop.ActivityMainShop.MTSTORAGE;
 import static com.example.entregaprototipo.Shop.ActivityMainShop.USER_UID;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -23,6 +27,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -324,6 +330,10 @@ public class FragmentAddProduct extends Fragment  implements View.OnClickListene
                                     product_save = true;
                                     loading_dialog.dismiss();
                                     Toast.makeText(FragmentAddProduct.this.getContext(), R.string.product_added, Toast.LENGTH_SHORT).show();
+                                    etName.setText("");
+                                    etDescription.setText("");
+                                    etPrice.setText("");
+                                    tvItemCount.setText("");
                                 }
                             }));
                         }
@@ -381,4 +391,5 @@ public class FragmentAddProduct extends Fragment  implements View.OnClickListene
             used_uri.remove(position);
         }
     }
+
 }
