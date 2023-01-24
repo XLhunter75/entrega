@@ -73,7 +73,7 @@
                     android:paddingLeft="15dp"
                     android:text="Nombre "
                     android:textAlignment="gravity"
-                    android:textColor="@color/black"
+                    android:textColor="@color/notSoBlack"
                     android:textSize="20dp"></TextView>
 
                 <Button
@@ -97,7 +97,7 @@
                 android:layout_marginHorizontal="15dp"
                 android:text="Productos"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/notSoBlack"
                 android:textStyle="bold"
                 android:textSize="25dp"></TextView>
 
