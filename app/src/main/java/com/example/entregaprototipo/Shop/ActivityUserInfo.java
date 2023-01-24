@@ -115,7 +115,7 @@ public class ActivityUserInfo extends AppCompatActivity {
                     else if(data.getKey().equals("pic")){
                         seller_data.setProfileURL(data.getValue().toString());
                         Uri product_image = Uri.parse(data.getValue().toString());
-                        Glide.with(ActivityUserInfo.this).load(String.valueOf(product_image)).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(sellerProfile);
+                        Glide.with(getApplicationContext()).load(String.valueOf(product_image)).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(sellerProfile);
                     }
                 }
             }
