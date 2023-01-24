@@ -116,11 +116,16 @@ public class ActivityLogin extends AppCompatActivity {
         mDatabase.child("GoogleUsers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot data: snapshot.getChildren()){
-                    String databaseName = data.child("name").getValue().toString();
-                    String databaseMailGoogle = data.child("emailGoogle").getValue().toString();
-                    list_users.add(databaseName);
-                    list_Mail.add(databaseMailGoogle);
+                try{
+                    for(DataSnapshot data: snapshot.getChildren()){
+                        String databaseName = data.child("name").getValue().toString();
+                        String databaseMailGoogle = data.child("emailGoogle").getValue().toString();
+                        list_users.add(databaseName);
+                        list_Mail.add(databaseMailGoogle);
+                    }
+                }
+                catch (NullPointerException e){
+
                 }
             }
             @Override
