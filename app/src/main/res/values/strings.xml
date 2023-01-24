@@ -101,7 +101,7 @@
     <string name="total_price">Precio total</string>
 
     <!-- String Dialog purchase-->
-    <string name="confirming">¿Estas seguro que has terminado?</string>
+    <string name="confirming">¿Realizar la compra?</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
 

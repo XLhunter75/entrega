@@ -48,26 +48,26 @@ public class ActivityResultSearch extends AppCompatActivity {
 
         //Rellenarlo por 1ra vez
         createRecycleProducts(found_products);
-        tabLayoutProducts.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if(tab.getPosition() == 0){
-                    createRecycleProducts(found_products);
-                } else if (tab.getPosition() == 1) {
-                    createRecycleUsers(found_users);
+            tabLayoutProducts.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    if(tab.getPosition() == 0){
+                        createRecycleProducts(found_products);
+                    } else if (tab.getPosition() == 1) {
+                        createRecycleUsers(found_users);
+                    }
                 }
-            }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
 
-            }
+                }
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
 
-            }
-        });
+                }
+            });
 
         btBack.setOnClickListener(new View.OnClickListener() {
             @Override

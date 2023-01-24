@@ -252,6 +252,7 @@ public class FragmentAddProduct extends Fragment  implements View.OnClickListene
                 String description = etDescription.getText().toString();
                 String category = spinnerCategory.getSelectedItem().toString();
                 String price_product = etPrice.getText().toString();
+                String ammount_product = tvItemCount.getText().toString();
 
                 if(name_product.isEmpty()){
                     Toast.makeText(FragmentAddProduct.this.getContext(),  R.string.product_name_empty, Toast.LENGTH_SHORT).show();
@@ -276,8 +277,11 @@ public class FragmentAddProduct extends Fragment  implements View.OnClickListene
                 else if(used_uri.size() == 0){
                     Toast.makeText(FragmentAddProduct.this.getContext(), R.string.product_image_empty, Toast.LENGTH_SHORT).show();
                     return;
-                }
-                else{
+                } else if (ammount_product.equals("0")) {
+                    Toast.makeText(FragmentAddProduct.this.getContext(), "No puede ser 0 la cantidad", Toast.LENGTH_SHORT).show();
+                    tvItemCount.requestFocus();
+                    return;
+                } else{
                     //Preparar la pantalla de carga
                     AlertDialog loading_dialog;
                     AlertDialog.Builder builder = new AlertDialog.Builder(FragmentAddProduct.this.getContext());
@@ -304,6 +308,7 @@ public class FragmentAddProduct extends Fragment  implements View.OnClickListene
                     MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("User_UID").setValue(USER_UID);
                     MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("SellerProfile").setValue(LOGGED_USER.getProfileURL());
                     MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("Available").setValue(true);
+                    MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("Ammount").setValue(ammount_product);
                     MDATABASE.child("Productos").child("Product"+Integer.toString(product_count)).child("liked_users").setValue("");
                     MDATABASE.child("Productos").child("countProduct").setValue(Integer.toString(product_count));
                     int number_image = 0;

@@ -101,6 +101,7 @@ public class FragmentHome extends Fragment {
                             ArrayList<String> users_liked = new ArrayList<>();
                             boolean product_available = false;
                             String seller_profile = "";
+                            int ammount_aviable = 0;
 
                             for(DataSnapshot data : product.getChildren()){
                                 if (data.getKey().equals("Category")) {
@@ -144,10 +145,16 @@ public class FragmentHome extends Fragment {
                                 else if (data.getKey().equals("SellerProfile")) {
                                     seller_profile = data.getValue().toString();
                                 }
+                                else if (data.getKey().equals("Ammount")) {
+                                    String ammount = data.getValue().toString();
+                                    ammount_aviable = Integer.parseInt(ammount);
+                                }
                             }
 
                             product_id = product.getKey();
-                            ProductData new_product = new ProductData(product_id, user_name, uid_user, product_name, product_description, product_category, product_price, url_main_image_data, product_available, users_liked, seller_profile);
+                            ProductData new_product = new ProductData(product_id, user_name, uid_user, product_name,
+                                    product_description, product_category, product_price, url_main_image_data, product_available,
+                                    users_liked, seller_profile,ammount_aviable);
 
                             if(!uid_user.equals(USER_UID)){
                                 not_my_products.add(new_product);

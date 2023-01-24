@@ -16,9 +16,11 @@ public class ProductData implements Serializable {
     private ArrayList<String> url_set_image_data;
     private boolean product_available;
     private ArrayList<String> user_liked;
+    private int ammount_aviable;
 
     public ProductData(String product_id, String user_name_product, String uid_user, String product_name, String product_description, String product_category,
-                       double product_price, ArrayList<String> url_main_image_data, boolean product_available, ArrayList<String> user_liked, String user_profile_url) {
+                       double product_price, ArrayList<String> url_main_image_data, boolean product_available, ArrayList<String> user_liked, String user_profile_url,
+                       int ammount_aviable) {
         this.user_name_product = user_name_product;
         this.uid_user = uid_user;
         this.product_name = product_name;
@@ -30,6 +32,15 @@ public class ProductData implements Serializable {
         this.user_liked = user_liked;
         this.product_id = product_id;
         this.user_profile_url = user_profile_url;
+        this.ammount_aviable = ammount_aviable;
+    }
+
+    public int getAmmount_aviable() {
+        return ammount_aviable;
+    }
+
+    public void setAmmount_aviable(int ammount_aviable) {
+        this.ammount_aviable = ammount_aviable;
     }
 
     public String getUser_profile_url() {
