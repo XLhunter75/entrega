@@ -68,7 +68,6 @@ public class ActivityRegister extends AppCompatActivity {
                     }
                 }
                 catch (NullPointerException e){
-                    Toast.makeText(ActivityRegister.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 
