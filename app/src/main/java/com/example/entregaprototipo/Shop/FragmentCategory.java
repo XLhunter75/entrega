@@ -57,7 +57,7 @@ public class FragmentCategory extends Fragment {
     }
 
     public void createRecycleProductsA(@NonNull View v, ArrayList<ProductData> list_show){
-        AdpProducts adpProducts_adaptor = new AdpProducts(v.getContext(), list_show,true,false);
+        AdpProducts adpProducts_adaptor = new AdpProducts(v.getContext(), list_show,true,false, false, false, false,true,  new ArrayList<>());
         RecyclerView recyclerViewMain = v.findViewById(R.id.recicleViewProducts2);
         recyclerViewMain.setLayoutManager(new GridLayoutManager(v.getContext(), 2));
         recyclerViewMain.setAdapter(adpProducts_adaptor);

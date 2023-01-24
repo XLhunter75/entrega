@@ -29,39 +29,15 @@
             android:layout_marginTop="5dp"
             android:textSize="25dp"
             android:textStyle="bold"
-            android:text="@string/your_product">
+            android:text="Comprados">
 
         </TextView>
 
     </LinearLayout>
 
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tablayoutMyProducts"
-        android:layout_width="match_parent"
-        android:fontFamily="@font/montserrat"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/all_your_product" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vendiendo" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No vendiendo"/>
-
-    </com.google.android.material.tabs.TabLayout>
-
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleViewMyProducts"
+        android:id="@+id/recycleViewBoughtProducts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="20dp"/>

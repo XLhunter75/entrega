@@ -76,7 +76,7 @@ public class ActivityMyProducts extends AppCompatActivity {
     }
 
     public void createRecycleProducts(@NonNull View v, ArrayList<ProductData> list_product){
-        AdpProducts adpProducts_adaptor_2 = new AdpProducts(v.getContext(), list_product,false,false);
+        AdpProducts adpProducts_adaptor_2 = new AdpProducts(v.getContext(), list_product,false,false, false ,false, true, false, new ArrayList<>());
         RecyclerView recyclerViewPopular = v.findViewById(R.id.recycleViewMyProducts);
         recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerViewPopular.setAdapter(adpProducts_adaptor_2);

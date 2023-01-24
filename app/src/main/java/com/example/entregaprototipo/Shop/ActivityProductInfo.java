@@ -280,6 +280,10 @@ public class ActivityProductInfo extends AppCompatActivity {
                                     MDATABASE.child("GoogleUsers").child(LOGGED_USER.getUid()).child("money").setValue(cash_user_logged);
                                     int actual_ammount = product.getAmmount_aviable();
                                     --actual_ammount;
+
+                                    if(actual_ammount == 0){
+                                        MDATABASE.child("Productos").child(product_id).child("Available").setValue(false);
+                                    }
                                     MDATABASE.child("Productos").child(product_id).child("Ammount").setValue(actual_ammount);
                                     Toast.makeText(ActivityProductInfo.this, "Comprado", Toast.LENGTH_SHORT).show();
 
@@ -340,6 +344,8 @@ public class ActivityProductInfo extends AppCompatActivity {
         MDATABASE.child("Purchased").child("ProductPurchased"+Integer.toString(count_purchased)).child("Product_image_url").setValue(product.getUrl_set_image_data().get(0));
         MDATABASE.child("Purchased").child("ProductPurchased"+Integer.toString(count_purchased)).child("Seller_profile").setValue(product.getUser_profile_url());
         MDATABASE.child("Purchased").child("ProductPurchased"+Integer.toString(count_purchased)).child("Buyer_profile").setValue(LOGGED_USER.getProfileURL());
+        MDATABASE.child("Purchased").child("ProductPurchased"+Integer.toString(count_purchased)).child("Buyer_name").setValue(LOGGED_USER.getName());
+        MDATABASE.child("Purchased").child("ProductPurchased"+Integer.toString(count_purchased)).child("Seller_name").setValue(product.getUser_name_product());
         MDATABASE.child("Purchased").child("ProductPurchased"+Integer.toString(count_purchased)).child("Product_id").setValue(product_id);
         MDATABASE.child("Purchased").child("purchase_ammount").setValue(Integer.toString(count_purchased));
     }

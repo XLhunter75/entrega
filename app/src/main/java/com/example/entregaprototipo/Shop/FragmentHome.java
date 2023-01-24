@@ -216,12 +216,12 @@ public class FragmentHome extends Fragment {
     }
 
     public void createRecycleProductsA(@NonNull View v){
-        AdpProducts adpProducts_adaptor = new AdpProducts(v.getContext(), not_my_products,false,false);
+        AdpProducts adpProducts_adaptor = new AdpProducts(v.getContext(), not_my_products,false,false, false ,false,false, true,  new ArrayList<>());
         RecyclerView recyclerViewMain = v.findViewById(R.id.mainRecycleViewProducts);
         recyclerViewMain.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerViewMain.setAdapter(adpProducts_adaptor);
 
-        AdpProducts adpProducts_adaptor_2 = new AdpProducts(v.getContext(), random_popular,false,true);
+        AdpProducts adpProducts_adaptor_2 = new AdpProducts(v.getContext(), random_popular,false,true, false ,false, false, true,  new ArrayList<>());
         RecyclerView recyclerViewPopular = v.findViewById(R.id.popularRecycleViewProducts);
         recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerViewPopular.setAdapter(adpProducts_adaptor_2);

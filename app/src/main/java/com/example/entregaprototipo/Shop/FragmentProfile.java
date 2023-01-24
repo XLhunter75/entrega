@@ -35,7 +35,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.entregaprototipo.LoginRegister.ActivityLogin;
+import com.example.entregaprototipo.Profile.ActivityBoughtProducts;
 import com.example.entregaprototipo.Profile.ActivityMyProducts;
+import com.example.entregaprototipo.Profile.ActivitySoldProducts;
 import com.example.entregaprototipo.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -134,8 +136,12 @@ public class FragmentProfile extends Fragment implements View.OnClickListener{
     public void onClick(View v){
         switch (v.getId()){
             case R.id.btBought:
+                Intent b = new Intent(FragmentProfile.this.getContext(), ActivityBoughtProducts.class);
+                startActivity(b);
                 break;
             case R.id.btSold:
+                Intent d = new Intent(FragmentProfile.this.getContext(), ActivitySoldProducts.class);
+                startActivity(d);
                 break;
             case R.id.btWallet:
                 break;
@@ -230,6 +236,28 @@ public class FragmentProfile extends Fragment implements View.OnClickListener{
                             }
                         }
                     }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                //Cambio para las compra ventas
+                MDATABASE.child("Purchased").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot post: snapshot.getChildren()){
+                            for(DataSnapshot data_post: post.getChildren()){
+                                if(data_post.getKey().equals("Buyer_uid") && data_post.getValue().toString().equals(LOGGED_USER.getUid())){
+                                    MDATABASE.child("Purchased").child(post.getKey()).child("Buyer_name").setValue(new_name);
+                                }
+                                else if(data_post.getKey().equals("Seller_uid") && data_post.getValue().toString().equals(LOGGED_USER.getUid())){
+                                    MDATABASE.child("Purchased").child(post.getKey()).child("Seller_name").setValue(new_name);
+                                }
+                            }
+                        }
+                    }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 

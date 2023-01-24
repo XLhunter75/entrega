@@ -1,5 +1,7 @@
 package com.example.entregaprototipo.Adapters;
 
+import static com.example.entregaprototipo.Shop.ActivityMainShop.LOGGED_USER;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.entregaprototipo.ProductModel.BuyerSimpleData;
 import com.example.entregaprototipo.ProductModel.ProductData;
 import com.example.entregaprototipo.R;
 import com.example.entregaprototipo.Shop.ActivityProductInfo;
@@ -25,13 +28,22 @@ public class AdpProducts extends RecyclerView.Adapter<AdpProducts.ViewHolder> {
     private ArrayList<ProductData> list_product;
     private LayoutInflater mInflater;
     private Boolean useCategoryCard, useSmallCard;
+    private Boolean boughtProductData, soldProductData, myProductData;
+    private Boolean clickableCard;
+    private ArrayList<BuyerSimpleData> buyerSimpleData;
 
-    public AdpProducts(Context context, ArrayList<ProductData> list_product, Boolean useCategoryCard, Boolean useSmallCard) {
+    public AdpProducts(Context context, ArrayList<ProductData> list_product, Boolean useCategoryCard, Boolean useSmallCard, Boolean boughtProductData,
+                       Boolean soldProductData, Boolean myProductData, Boolean clickableCard, ArrayList<BuyerSimpleData> buyerSimpleData) {
         this.context = context;
         this.list_product = list_product;
         this.useCategoryCard = useCategoryCard;
         this.mInflater = LayoutInflater.from(context);
         this.useSmallCard = useSmallCard;
+        this.boughtProductData = boughtProductData;
+        this.soldProductData = soldProductData;
+        this.clickableCard = clickableCard;
+        this.myProductData = myProductData;
+        this.buyerSimpleData = buyerSimpleData;
     }
 
     @NonNull
@@ -40,14 +52,14 @@ public class AdpProducts extends RecyclerView.Adapter<AdpProducts.ViewHolder> {
 
         if(this.useCategoryCard){
             View view = mInflater.inflate(R.layout.resourse_card_category_product, null);
-            return new AdpProducts.ViewHolder(view);
+            return new AdpProducts.ViewHolder(view, boughtProductData, soldProductData, myProductData, buyerSimpleData);
         } else if (this.useSmallCard) {
             View view = mInflater.inflate(R.layout.resource_card_product_small, null);
-            return new AdpProducts.ViewHolder(view);
+            return new AdpProducts.ViewHolder(view, boughtProductData, soldProductData, myProductData, buyerSimpleData);
         }
         else{
             View view = mInflater.inflate(R.layout.resource_card_product_large, null);
-            return new AdpProducts.ViewHolder(view);
+            return new AdpProducts.ViewHolder(view, boughtProductData, soldProductData, myProductData, buyerSimpleData);
         }
     }
 
@@ -58,9 +70,11 @@ public class AdpProducts extends RecyclerView.Adapter<AdpProducts.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), ActivityProductInfo.class);
-                i.putExtra("id_product", product_selected.getProduct_id());
-                v.getContext().startActivity(i);
+                if(clickableCard){
+                    Intent i = new Intent(v.getContext(), ActivityProductInfo.class);
+                    i.putExtra("id_product", product_selected.getProduct_id());
+                    v.getContext().startActivity(i);
+                }
             }
         });
 
@@ -72,16 +86,23 @@ public class AdpProducts extends RecyclerView.Adapter<AdpProducts.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tvNameProduct, tvPriceProduct, tvDescription;
-        ImageView imageProduct;
+        private TextView tvNameProduct, tvPriceProduct, tvDescription;
+        private ImageView imageProduct;
+        private Boolean boughtProductData, soldProductData, myProductData;
+        private ArrayList<BuyerSimpleData> buyerSimpleData;
 
         //Recogera componentes del layout
-        public ViewHolder(@NonNull View itemView){
+        public ViewHolder(@NonNull View itemView, Boolean boughtProductData, Boolean soldProductData, Boolean myProductData,
+                          ArrayList<BuyerSimpleData> buyerSimpleData){
             super(itemView);
             tvNameProduct = itemView.findViewById(R.id.product_name);
             tvPriceProduct = itemView.findViewById(R.id.product_price);
             imageProduct = itemView.findViewById(R.id.image_product);
             tvDescription = itemView.findViewById(R.id.product_description);
+            this.boughtProductData = boughtProductData;
+            this.soldProductData = soldProductData;
+            this.myProductData = myProductData;
+            this.buyerSimpleData = buyerSimpleData;
         }
 
         //Pondra la informacion al objeto
@@ -92,6 +113,28 @@ public class AdpProducts extends RecyclerView.Adapter<AdpProducts.ViewHolder> {
             ArrayList<String> url_images = productData.getUrl_set_image_data();
             Uri product_image = Uri.parse(url_images.get(0));
             Glide.with(itemView).load(String.valueOf(product_image)).into(imageProduct);
+
+            if(boughtProductData){
+                tvNameProduct.setText("Vendedor:");
+                tvDescription.setText(productData.getUser_name_product());
+            }
+
+            if(myProductData){
+                tvPriceProduct.setText("Quedan: " +productData.getAmmount_aviable());
+                if(productData.getAmmount_aviable() == 0){
+                    tvPriceProduct.setText("Vendido todo");
+                }
+            }
+
+            if(soldProductData){
+                for(BuyerSimpleData buyer: buyerSimpleData){
+                    if(buyer.getProduct_id().equals(productData.getProduct_id())){
+                        tvNameProduct.setText("Comprador:");
+                        tvDescription.setText(buyer.getBuyer_name());
+                    }
+                }
+            }
+
         }
     }
 }

@@ -269,7 +269,7 @@ public class ActivityUserInfo extends AppCompatActivity {
     }
 
     public void createRecycleProductsA(ArrayList<ProductData> sellers_products){
-        AdpProducts adpProducts_adaptor = new AdpProducts(ActivityUserInfo.this, sellers_products,false,false);
+        AdpProducts adpProducts_adaptor = new AdpProducts(ActivityUserInfo.this, sellers_products,false,false, false ,false, false, true,  new ArrayList<>());
         RecyclerView recyclerViewMain = findViewById(R.id.userProductsRecycleView);
         recyclerViewMain.setLayoutManager(new LinearLayoutManager(ActivityUserInfo.this, LinearLayoutManager.VERTICAL, false));
         recyclerViewMain.setAdapter(adpProducts_adaptor);
