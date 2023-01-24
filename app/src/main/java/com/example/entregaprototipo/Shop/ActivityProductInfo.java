@@ -206,6 +206,11 @@ public class ActivityProductInfo extends AppCompatActivity {
             }
         });
 
+        if(product.getAmmount_aviable() == 0){
+            btBuy.setEnabled(false);
+            btBuy.setText("Sin stock");
+        }
+
         btBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
