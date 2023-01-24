@@ -40,7 +40,7 @@ import java.util.List;
 
 public class ActivityProductInfo extends AppCompatActivity {
 
-    private Button btChat, btBuy;
+    private Button btInfo, btBuy;
 
     private ImageButton btBack;
     private TextView etProduct, etPrice, etSeller, etDescription;
@@ -63,7 +63,7 @@ public class ActivityProductInfo extends AppCompatActivity {
         setContentView(R.layout.activity_product_info);
 
         btBack = findViewById(R.id.btBack);
-        btChat = findViewById(R.id.seller_chat_button);
+        btInfo = findViewById(R.id.seller_chat_button);
         btBuy = findViewById(R.id.bt_buy);
         etProduct = findViewById(R.id.product_name);
         etPrice = findViewById(R.id.product_price);
@@ -197,10 +197,12 @@ public class ActivityProductInfo extends AppCompatActivity {
             }
         });
 
-        btChat.setOnClickListener(new View.OnClickListener() {
+        btInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(ActivityProductInfo.this, ActivityUserInfo.class);
+                i.putExtra("seller_uid", seller_uid);
+                v.getContext().startActivity(i);
             }
         });
 
@@ -257,6 +259,31 @@ public class ActivityProductInfo extends AppCompatActivity {
                 Intent i = new Intent(ActivityProductInfo.this, ActivityUserInfo.class);
                 i.putExtra("seller_uid", seller_uid);
                 v.getContext().startActivity(i);
+            }
+        });
+
+        cbLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!cbLike.isChecked()){
+                    //Android
+                    ArrayList<String> liked_list_users = product.getUser_liked();
+                    if(liked_list_users.contains(LOGGED_USER.getUid())){
+                        liked_list_users.remove(LOGGED_USER.getUid());
+                    }
+                    product.setUser_liked(liked_list_users);
+                    //Firebasae
+                    MDATABASE.child("Productos").child(product_id).child("liked_users").child(LOGGED_USER.getUid()).setValue(false);
+                }
+                else if (cbLike.isChecked()) {
+                    //Android
+                    ArrayList<String> liked_list_users = product.getUser_liked();
+                    liked_list_users.add(LOGGED_USER.getUid());
+                    product.setUser_liked(liked_list_users);
+                    //Firebasae
+                    MDATABASE.child("Productos").child(product_id).child("liked_users").child(LOGGED_USER.getUid()).setValue(true);
+
+                }
             }
         });
     }

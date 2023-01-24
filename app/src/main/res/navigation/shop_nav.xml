@@ -17,9 +17,9 @@
         tools:layout="@layout/fragment_category" />
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.example.entregaprototipo.Shop.FragmentChat"
+        android:name="com.example.entregaprototipo.Shop.FragmentLiked"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/fragment_liked" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.entregaprototipo.Shop.FragmentProfile"

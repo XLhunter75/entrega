@@ -63,6 +63,7 @@
     <string name="perfil">Perfil</string>
     <string name="add_product">Publicar</string>
     <string name="message">Chat</string>
+    <string name="liked_product">Me gusta</string>
 
     <!-- String Item Tienda-->
     <string name="addCart">Agregar al carrito</string>

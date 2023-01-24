@@ -14,9 +14,9 @@
         android:icon="@drawable/ic_add"
         android:id="@+id/shop_debug"/>
     <item
-        android:title="@string/message"
-        android:icon="@drawable/ic_chat"
-        android:id="@+id/shop_cart"/>
+        android:title="@string/liked_product"
+        android:icon="@drawable/ic_not_liked"
+        android:id="@+id/shop_liked"/>
     <item
         android:title="@string/perfil"
         android:icon="@drawable/ic_perfil_shop"

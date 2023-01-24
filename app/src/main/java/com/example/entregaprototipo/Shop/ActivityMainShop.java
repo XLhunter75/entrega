@@ -75,8 +75,8 @@ public class ActivityMainShop extends AppCompatActivity {
                 case R.id.shop_category:
                     replaceFragment(new FragmentCategory());
                     break;
-                case R.id.shop_cart:
-                    replaceFragment(new FragmentChat());
+                case R.id.shop_liked:
+                    replaceFragment(new FragmentLiked());
                     break;
                 case R.id.shop_perfil:
                     replaceFragment(new FragmentProfile());
