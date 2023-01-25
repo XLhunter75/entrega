@@ -39,10 +39,8 @@
             android:layout_weight=".2"
             android:button="@null"
             android:drawableLeft="@drawable/like_checkbox"
-            android:drawablePadding="5dp"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:paddingLeft="10dp"
+            android:gravity="right"
+            android:paddingLeft="35dp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp" />
 
