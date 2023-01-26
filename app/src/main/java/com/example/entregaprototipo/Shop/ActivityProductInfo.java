@@ -59,6 +59,8 @@ public class ActivityProductInfo extends AppCompatActivity {
     private Double seller_money;
     private Boolean found_seller;
 
+    private AlertDialog confirm_dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -225,7 +227,6 @@ public class ActivityProductInfo extends AppCompatActivity {
                 }
 
                 //Preparar la pantalla de carga
-                AlertDialog confirm_dialog;
                 AlertDialog.Builder builder = new AlertDialog.Builder(ActivityProductInfo.this);
                 builder.setCancelable(false);
 
@@ -383,6 +384,12 @@ public class ActivityProductInfo extends AppCompatActivity {
         MDATABASE.child("Purchased").child("ProductPurchased"+Integer.toString(count_purchased)).child("Seller_name").setValue(product.getUser_name_product());
         MDATABASE.child("Purchased").child("ProductPurchased"+Integer.toString(count_purchased)).child("Product_id").setValue(product_id);
         MDATABASE.child("Purchased").child("purchase_ammount").setValue(Integer.toString(count_purchased));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        confirm_dialog.dismiss();
     }
 
     public void updateCashSeller(){
