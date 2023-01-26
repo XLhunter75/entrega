@@ -194,23 +194,6 @@ public class FragmentHome extends Fragment {
                 }
             });
 
-        imageSlider.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for(int i = 0; i < slideModels.size(); i++){
-                    for(ProductData product: random_popular){
-                        System.out.println(slideModels.get(i).getImageUrl());
-                        System.out.println(product.getUrl_set_image_data().get(0));
-                        if(slideModels.get(i).getImageUrl().equals(product.getUrl_set_image_data().get(0))){
-                            Intent a = new Intent(v.getContext(), ActivityProductInfo.class);
-                            a.putExtra("id_product", product.getProduct_id());
-                            v.getContext().startActivity(a);
-                        }
-                    }
-                }
-            }
-        });
-
         btSearched.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

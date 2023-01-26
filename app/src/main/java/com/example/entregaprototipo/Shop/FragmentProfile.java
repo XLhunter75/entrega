@@ -196,13 +196,14 @@ public class FragmentProfile extends Fragment implements View.OnClickListener{
 
         TextView tvChangeTitle;
         EditText etChange;
-        Button btChange;
+        Button btChange, btCancel;
 
         tvChangeTitle = v.findViewById(R.id.titleChange);
         tvChangeTitle.setText("Cambiar Nombre");
         etChange = v.findViewById(R.id.etNameToChange);
         etChange.setHint("Nombre");
         btChange = v.findViewById(R.id.btChangeNameDatabase);
+        btCancel = v.findViewById(R.id.buttonCancel);
 
         btChange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -268,6 +269,13 @@ public class FragmentProfile extends Fragment implements View.OnClickListener{
 
 
                 Toast.makeText(FragmentProfile.this.getContext(), "Nombre cambiado", Toast.LENGTH_SHORT).show();
+                change_name_dialog.dismiss();
+            }
+        });
+
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 change_name_dialog.dismiss();
             }
         });
