@@ -60,6 +60,7 @@ public class ActivityProductInfo extends AppCompatActivity {
     private Boolean found_seller;
 
     private AlertDialog confirm_dialog;
+    private AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,21 +77,6 @@ public class ActivityProductInfo extends AppCompatActivity {
         sellerProfile = findViewById(R.id.seller_profile);
         cbLike = findViewById(R.id.likeBtn);
         imagesPack = findViewById(R.id.productImages);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityProductInfo.this);
-
-        builder.setCancelable(false);
-
-        //Preparar para agregar el layout
-        LayoutInflater inflater = getLayoutInflater();
-        v = inflater.inflate(R.layout.dialog_confirm_purchase, null);
-
-        //Configurando el layout en el view
-        builder.setView(v);
-        confirm_dialog = builder.create();
-
-        Button confirmBuy = v.findViewById(R.id.btYes);
-        Button notConfirmBut = v.findViewById(R.id.btNo);
 
         Bundle extras = getIntent().getExtras();
         product_id = extras.getString("id_product");
@@ -229,7 +215,6 @@ public class ActivityProductInfo extends AppCompatActivity {
             }
         });
 
-
         btBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -240,28 +225,7 @@ public class ActivityProductInfo extends AppCompatActivity {
                     return;
 
                 }
-
-                //Preparar la pantalla de carga
-
-
-                //Mostrar el layout
-                confirm_dialog.show();
-
-                confirmBuy.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        processBuy();
-                    }
-                });
-
-                notConfirmBut.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        confirm_dialog.dismiss();
-                    }
-                });
-
-
+                createAlertConfirm(v);
             }
         });
 
@@ -299,6 +263,44 @@ public class ActivityProductInfo extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void createAlertConfirm(@NonNull View v){
+
+        builder = new AlertDialog.Builder(ActivityProductInfo.this);
+
+        builder.setCancelable(false);
+
+        //Preparar para agregar el layout
+        LayoutInflater inflater = getLayoutInflater();
+        v = inflater.inflate(R.layout.dialog_confirm_purchase, null);
+
+        //Configurando el layout en el view
+        builder.setView(v);
+        confirm_dialog = builder.create();
+
+        //Preparar la pantalla de carga
+        Button confirmBuy = v.findViewById(R.id.btYes);
+        Button notConfirmBut = v.findViewById(R.id.btNo);
+
+        //Mostrar el layout
+        confirm_dialog.show();
+
+        confirmBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processBuy();
+            }
+        });
+
+        notConfirmBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirm_dialog.dismiss();
+            }
+        });
+
+
     }
 
     public void processBuy(){
@@ -393,13 +395,17 @@ public class ActivityProductInfo extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        confirm_dialog.dismiss();
+        if(confirm_dialog != null){
+            confirm_dialog.dismiss();
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        confirm_dialog.dismiss();
+        if(confirm_dialog != null){
+            confirm_dialog.dismiss();
+        }
     }
 
     public void updateCashSeller(){
