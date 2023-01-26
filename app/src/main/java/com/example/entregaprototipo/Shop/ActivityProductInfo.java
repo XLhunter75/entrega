@@ -77,6 +77,21 @@ public class ActivityProductInfo extends AppCompatActivity {
         cbLike = findViewById(R.id.likeBtn);
         imagesPack = findViewById(R.id.productImages);
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityProductInfo.this);
+
+        builder.setCancelable(false);
+
+        //Preparar para agregar el layout
+        LayoutInflater inflater = getLayoutInflater();
+        v = inflater.inflate(R.layout.dialog_confirm_purchase, null);
+
+        //Configurando el layout en el view
+        builder.setView(v);
+        confirm_dialog = builder.create();
+
+        Button confirmBuy = v.findViewById(R.id.btYes);
+        Button notConfirmBut = v.findViewById(R.id.btNo);
+
         Bundle extras = getIntent().getExtras();
         product_id = extras.getString("id_product");
 
@@ -227,19 +242,8 @@ public class ActivityProductInfo extends AppCompatActivity {
                 }
 
                 //Preparar la pantalla de carga
-                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityProductInfo.this);
-                builder.setCancelable(false);
 
-                //Preparar para agregar el layout
-                LayoutInflater inflater = getLayoutInflater();
-                v = inflater.inflate(R.layout.dialog_confirm_purchase, null);
 
-                //Configurando el layout en el view
-                builder.setView(v);
-                confirm_dialog = builder.create();
-
-                Button confirmBuy = v.findViewById(R.id.btYes);
-                Button notConfirmBut = v.findViewById(R.id.btNo);
                 //Mostrar el layout
                 confirm_dialog.show();
 
@@ -384,6 +388,12 @@ public class ActivityProductInfo extends AppCompatActivity {
         MDATABASE.child("Purchased").child("ProductPurchased"+Integer.toString(count_purchased)).child("Seller_name").setValue(product.getUser_name_product());
         MDATABASE.child("Purchased").child("ProductPurchased"+Integer.toString(count_purchased)).child("Product_id").setValue(product_id);
         MDATABASE.child("Purchased").child("purchase_ammount").setValue(Integer.toString(count_purchased));
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        confirm_dialog.dismiss();
     }
 
     @Override
