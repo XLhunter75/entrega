@@ -333,7 +333,8 @@ public class FragmentAddProduct extends Fragment  implements View.OnClickListene
                                     etName.setText("");
                                     etDescription.setText("");
                                     etPrice.setText("");
-                                    tvItemCount.setText("");
+                                    tvItemCount.setText("0");
+                                    emptyThePictures();
                                 }
                             }));
                         }
@@ -390,6 +391,20 @@ public class FragmentAddProduct extends Fragment  implements View.OnClickListene
         if(position_used[position] == true){
             used_uri.remove(position);
         }
+    }
+
+    public void emptyThePictures(){
+
+        imageView1.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_photo));
+        imageView2.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_photo));
+        imageView3.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_photo));
+        imageView4.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_photo));
+        imageView5.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_photo));
+        imageView6.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_photo));
+        imageView7.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_photo));
+        imageView8.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_photo));
+        used_uri = new ArrayList<>();
+
     }
 
 }
