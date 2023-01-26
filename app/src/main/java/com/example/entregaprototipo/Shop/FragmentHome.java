@@ -194,7 +194,9 @@ public class FragmentHome extends Fragment {
                     imageSlider.setItemClickListener(new ItemClickListener() {
                         @Override
                         public void onItemSelected(int i) {
-                            Toast.makeText(FragmentHome.this.getContext(), "Slider " + i + "seleccionado", Toast.LENGTH_SHORT).show();
+                            Intent a = new Intent(v.getContext(), ActivityProductInfo.class);
+                            a.putExtra("id_product", random_popular.get(i).getProduct_id());
+                            v.getContext().startActivity(a);
                         }
                     });
 
