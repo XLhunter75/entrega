@@ -19,9 +19,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.interfaces.ItemClickListener;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.entregaprototipo.Adapters.AdpProducts;
 import com.example.entregaprototipo.ProductModel.ProductData;
@@ -61,6 +63,7 @@ public class FragmentHome extends Fragment {
 
         imageSlider = v.findViewById(R.id.slider);
         List<SlideModel> slideModels = new ArrayList<>();
+
 
 
         //Preparar la pantalla de carga
@@ -185,6 +188,16 @@ public class FragmentHome extends Fragment {
                     loading_dialog.dismiss();
                     //LISTA DE IMAGENES DEL SLIDER
                     imageSlider.setImageList(slideModels);
+
+
+                    //IMAGESLIDER CLICK LISTENER
+                    imageSlider.setItemClickListener(new ItemClickListener() {
+                        @Override
+                        public void onItemSelected(int i) {
+                            Toast.makeText(FragmentHome.this.getContext(), "Slider " + i + "seleccionado", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
 
                 }
 
