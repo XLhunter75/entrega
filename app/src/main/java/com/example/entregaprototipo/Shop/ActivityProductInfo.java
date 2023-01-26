@@ -78,19 +78,11 @@ public class ActivityProductInfo extends AppCompatActivity {
         imagesPack = findViewById(R.id.productImages);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ActivityProductInfo.this);
-
         builder.setCancelable(false);
-
-        //Preparar para agregar el layout
         LayoutInflater inflater = getLayoutInflater();
-        v = inflater.inflate(R.layout.dialog_confirm_purchase, null);
-
-        //Configurando el layout en el view
-        builder.setView(v);
+        inflater.inflate(R.layout.dialog_confirm_purchase, null);
+        builder.setView(LayoutInflater.from(this).inflate(R.layout.dialog_confirm_purchase, null));
         confirm_dialog = builder.create();
-
-        Button confirmBuy = v.findViewById(R.id.btYes);
-        Button notConfirmBut = v.findViewById(R.id.btNo);
 
         Bundle extras = getIntent().getExtras();
         product_id = extras.getString("id_product");
@@ -243,6 +235,16 @@ public class ActivityProductInfo extends AppCompatActivity {
 
                 //Preparar la pantalla de carga
 
+
+                //Preparar para agregar el layout
+
+
+
+                //Configurando el layout en el view
+
+
+                Button confirmBuy = v.findViewById(R.id.btYes);
+                Button notConfirmBut = v.findViewById(R.id.btNo);
 
                 //Mostrar el layout
                 confirm_dialog.show();
