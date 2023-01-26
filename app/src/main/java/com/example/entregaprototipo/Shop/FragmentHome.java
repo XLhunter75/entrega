@@ -185,6 +185,7 @@ public class FragmentHome extends Fragment {
                     loading_dialog.dismiss();
                     //LISTA DE IMAGENES DEL SLIDER
                     imageSlider.setImageList(slideModels);
+
                 }
 
                 @Override
