@@ -224,6 +224,8 @@ public class FragmentProfile extends Fragment implements View.OnClickListener{
                     MDATABASE.child("FireBaseUsers").child(LOGGED_USER.getUid()).child("name").setValue(new_name);
                 }
 
+                tvName.setText(new_name);
+
                 //Cambio de nombre de todos los post del mismo usuario
                 MDATABASE.child("Productos").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

@@ -4,6 +4,7 @@ import static com.example.entregaprototipo.Shop.ActivityMainShop.LOGGED_USER;
 import static com.example.entregaprototipo.Shop.ActivityMainShop.MDATABASE;
 import static com.example.entregaprototipo.Shop.ActivityMainShop.MTSTORAGE;
 import static com.example.entregaprototipo.Shop.ActivityMainShop.USER_UID;
+import static com.example.entregaprototipo.Shop.FragmentHome.REGISTERED_PRODUCTS;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +38,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ActivityProductInfo extends AppCompatActivity {
 
@@ -289,6 +291,7 @@ public class ActivityProductInfo extends AppCompatActivity {
                     MDATABASE.child("Productos").child(product_id).child("liked_users").child(LOGGED_USER.getUid()).setValue(true);
 
                 }
+
             }
         });
     }

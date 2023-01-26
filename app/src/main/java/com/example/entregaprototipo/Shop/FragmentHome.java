@@ -79,7 +79,7 @@ public class FragmentHome extends Fragment {
         loading_dialog = builder.create();
 
         //Recoger todos los productos
-            MDATABASE.child("Productos").addListenerForSingleValueEvent(new ValueEventListener() {
+        MDATABASE.child("Productos").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     //Mostrar el layout
