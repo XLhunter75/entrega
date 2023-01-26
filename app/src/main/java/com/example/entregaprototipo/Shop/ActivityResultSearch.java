@@ -80,14 +80,14 @@ public class ActivityResultSearch extends AppCompatActivity {
 
     public void fillFoundUser(){
         for(UserData user: ALL_USERS){
-            if(user.getName().contains(wordSearch)){
+            if(user.getName().toLowerCase().contains(wordSearch.toLowerCase())){
                 found_users.add(user);
             }
         }
     }
     public void fillFoundProducts(){
         for(ProductData product: REGISTERED_PRODUCTS){
-            if(product.getProduct_name().contains(wordSearch)){
+            if(product.getProduct_name().toLowerCase().contains(wordSearch.toLowerCase())){
                 found_products.add(product);
             }
         }
