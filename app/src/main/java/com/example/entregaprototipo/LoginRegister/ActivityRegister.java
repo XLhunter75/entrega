@@ -131,7 +131,7 @@ public class ActivityRegister extends AppCompatActivity {
                 }
                 for(String check_mail: list_mail){
                     if(mail.equals(check_mail)){
-                        Toast.makeText(ActivityRegister.this, R.string.nameUsed, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityRegister.this, R.string.mailUsed, Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }

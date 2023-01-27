@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -33,7 +34,7 @@ import java.util.Random;
 
 public class ActivityUserInfo extends AppCompatActivity {
 
-    private Button btBack, btChat;
+    private Button btBack;
 
     private ImageView sellerProfile;
     private ArrayList<ProductData> sellers_product;
@@ -49,7 +50,6 @@ public class ActivityUserInfo extends AppCompatActivity {
         sellers_product = new ArrayList<>();
 
         btBack = findViewById(R.id.btBack);
-        btChat = findViewById(R.id.seller_chat_button);
         sellerProfile = findViewById(R.id.seller_profile);
         tvSellersName = findViewById(R.id.seller_name);
 
@@ -63,12 +63,6 @@ public class ActivityUserInfo extends AppCompatActivity {
             }
         });
 
-        btChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         getSellersProduct();
         getSellerData();

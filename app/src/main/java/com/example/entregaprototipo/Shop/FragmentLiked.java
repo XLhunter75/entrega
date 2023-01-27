@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,9 @@ public class FragmentLiked extends Fragment {
 
     private ArrayList<ProductData> list_product_fav;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,6 +36,20 @@ public class FragmentLiked extends Fragment {
 
 
         list_product_fav = new ArrayList<>();
+
+
+        swipeRefreshLayout = v.findViewById(R.id.refresh_layout_2);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                list_product_fav = new ArrayList<>();
+                fillLikeProducts();
+                createRecycleProducts(v, list_product_fav);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
 
         fillLikeProducts();
         createRecycleProducts(v, list_product_fav);

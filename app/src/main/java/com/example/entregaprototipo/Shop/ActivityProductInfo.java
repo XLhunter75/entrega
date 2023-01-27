@@ -246,6 +246,14 @@ public class ActivityProductInfo extends AppCompatActivity {
                     ArrayList<String> liked_list_users = product.getUser_liked();
                     if(liked_list_users.contains(LOGGED_USER.getUid())){
                         liked_list_users.remove(LOGGED_USER.getUid());
+                        for(ProductData product: REGISTERED_PRODUCTS){
+                            for(String uid: product.getUser_liked()){
+                                if(uid.equals(LOGGED_USER.getUid()) && product.getProduct_id().equals(product_id)){
+                                    product.getUser_liked().remove(uid);
+                                    break;
+                                }
+                            }
+                        }
                     }
                     product.setUser_liked(liked_list_users);
                     //Firebasae
@@ -256,6 +264,14 @@ public class ActivityProductInfo extends AppCompatActivity {
                     ArrayList<String> liked_list_users = product.getUser_liked();
                     liked_list_users.add(LOGGED_USER.getUid());
                     product.setUser_liked(liked_list_users);
+                    for(ProductData product2: REGISTERED_PRODUCTS){
+                        if(product2.getProduct_id().equals(product_id)){
+                            ArrayList<String> new_liked = product2.getUser_liked();
+                            new_liked.add(LOGGED_USER.getUid());
+                            product2.setUser_liked(new_liked);
+                            break;
+                        }
+                    }
                     //Firebasae
                     MDATABASE.child("Productos").child(product_id).child("liked_users").child(LOGGED_USER.getUid()).setValue(true);
 
@@ -322,7 +338,6 @@ public class ActivityProductInfo extends AppCompatActivity {
                                     MDATABASE.child("GoogleUsers").child(LOGGED_USER.getUid()).child("money").setValue(cash_user_logged);
                                     int actual_ammount = product.getAmmount_aviable();
                                     --actual_ammount;
-
                                     if(actual_ammount == 0){
                                         MDATABASE.child("Productos").child(product_id).child("Available").setValue(false);
                                     }
@@ -344,8 +359,12 @@ public class ActivityProductInfo extends AppCompatActivity {
                                     MDATABASE.child("FireBaseUsers").child(LOGGED_USER.getUid()).child("money").setValue(cash_user_logged);
                                     int actual_ammount = product.getAmmount_aviable();
                                     --actual_ammount;
+                                    if(actual_ammount == 0){
+                                        MDATABASE.child("Productos").child(product_id).child("Available").setValue(false);
+                                    }
                                     MDATABASE.child("Productos").child(product_id).child("Ammount").setValue(actual_ammount);
                                     Toast.makeText(ActivityProductInfo.this, "Comprado", Toast.LENGTH_SHORT).show();
+
 
                                     updateCashSeller();
 
