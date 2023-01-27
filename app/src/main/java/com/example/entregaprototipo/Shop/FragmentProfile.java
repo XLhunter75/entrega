@@ -108,12 +108,12 @@ public class FragmentProfile extends Fragment implements View.OnClickListener{
                 try{
                     if(Build.VERSION.SDK_INT < 28){
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri);
-                        saveImage(imageUri, LOGGED_USER.getUid());
+                        saveImage(imageUri, LOGGED_USER.getUid(), v);
                         ivProfile.setImageBitmap(bitmap);
                     }
                     else{
                         ImageDecoder.Source source = ImageDecoder.createSource(contentResolver,imageUri);
-                        saveImage(imageUri, LOGGED_USER.getUid());
+                        saveImage(imageUri, LOGGED_USER.getUid(), v);
                         Bitmap bitmap = ImageDecoder.decodeBitmap(source);
                         ivProfile.setImageBitmap(bitmap);
                     }
@@ -282,7 +282,24 @@ public class FragmentProfile extends Fragment implements View.OnClickListener{
 
     }
 
-    public void saveImage(Uri imageUri, String uid){
+    public void saveImage(Uri imageUri, String uid, View v){
+
+        AlertDialog loading_alert;
+        AlertDialog.Builder builder = new AlertDialog.Builder(FragmentProfile.this.getContext());
+        builder.setCancelable(false);
+
+        //Preparar para agregar el layout
+        LayoutInflater inflater = getLayoutInflater();
+        v = inflater.inflate(R.layout.resource_alertdialog_loading, null);
+
+        //Configurando el layout en el view
+        builder.setView(v);
+        loading_alert = builder.create();
+
+        loading_alert.show();
+
+        TextView text_loading = v.findViewById(R.id.tv_loading);
+        text_loading.setText("Cambiando de perfil...");
 
         if(imageUri != null){
 
@@ -296,9 +313,11 @@ public class FragmentProfile extends Fragment implements View.OnClickListener{
                             MDATABASE.child("GoogleUsers").child(LOGGED_USER.getUid()).child("pic").setValue(imageURL.toString());
                         });
                         Toast.makeText(FragmentProfile.this.getContext(), R.string.success_change_name, Toast.LENGTH_SHORT).show();
+                        loading_alert.dismiss();
                     }
                     public void onFailure(@NonNull Exception exception) {
                         Toast.makeText(FragmentProfile.this.getContext(), "Algo a salido mal...", Toast.LENGTH_SHORT).show();
+                        loading_alert.dismiss();
                     }
                 });
             }
@@ -312,9 +331,11 @@ public class FragmentProfile extends Fragment implements View.OnClickListener{
                             MDATABASE.child("FireBaseUsers").child(LOGGED_USER.getUid()).child("pic").setValue(imageURL.toString());
                         });
                         Toast.makeText(FragmentProfile.this.getContext(), "Imagen subido exitosamente", Toast.LENGTH_SHORT).show();
+                        loading_alert.dismiss();
                     }
                     public void onFailure(@NonNull Exception exception) {
                         Toast.makeText(FragmentProfile.this.getContext(), "Algo a salido mal...", Toast.LENGTH_SHORT).show();
+                        loading_alert.dismiss();
                     }
                 });
             }
