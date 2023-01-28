@@ -76,6 +76,7 @@ public class FragmentHome extends Fragment {
                 all_products = new ArrayList<>();
                 random_popular = new ArrayList<>();
                 not_my_products = new ArrayList<>();
+                slideModels = new ArrayList<>();
 
                 createRecycleProductsA(v);
                 fillProducts(v);
@@ -211,7 +212,6 @@ public class FragmentHome extends Fragment {
 
                 //Elegir de manera aleatoria productos destacados
                 Random r = new Random();
-                Random r2 = new Random();
                 ArrayList<Integer> used_product = new ArrayList<>();
                 for(int i = 0; i < 3; i++){
                     int selected_product = r.nextInt(not_my_products.size());
@@ -262,5 +262,6 @@ public class FragmentHome extends Fragment {
         RecyclerView recyclerViewPopular = v.findViewById(R.id.popularRecycleViewProducts);
         recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerViewPopular.setAdapter(adpProducts_adaptor_2);
+        System.out.println(random_popular.size());
     }
 }
